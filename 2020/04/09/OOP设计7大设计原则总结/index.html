@@ -1,45 +1,898 @@
-<!doctype html>
-<html lang="zh-Hans">
+<!DOCTYPE html>
+<html lang=zh>
 <head>
-<meta charset="utf-8">
-<title>OOP设计7大设计原则总结 - 打马的部落格</title>
-<base href="/">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/">
-<link rel="icon" type="image/x-icon" href="../../../../favicon.ico">
-
-<meta name="description" content="在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据 7 条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。下面将为你依次介绍这7条开发原则。 一. 开闭原则   定义 软件实体应当对扩展开放，对修改关闭。当应用需求改变时，在不修改软件实体源代码或者二进制代码的前提下，可以扩展模块的功能，使其满足新的需求。   作用   对软件测试的影">
-<meta property="og:type" content="website">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>OOP设计7大设计原则总结 | Hexo</title>
+  <meta name="description" content="在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据 7 条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。下面将为你依次介绍这7条开发原则。  一. 开闭原则    定义 软件实体应当对扩展开放，对修改关闭。当应用需求改变时，在不修改软件实体源代码或者二进制代码的前提下，可以扩展模块的功能，使其满足新的需求。    作用   对软件测">
+<meta property="og:type" content="article">
 <meta property="og:title" content="OOP设计7大设计原则总结">
 <meta property="og:url" content="https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="打马的部落格">
-<meta property="og:description" content="在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据 7 条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。下面将为你依次介绍这7条开发原则。 一. 开闭原则   定义 软件实体应当对扩展开放，对修改关闭。当应用需求改变时，在不修改软件实体源代码或者二进制代码的前提下，可以扩展模块的功能，使其满足新的需求。   作用   对软件测试的影">
+<meta property="og:description" content="在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据 7 条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。下面将为你依次介绍这7条开发原则。  一. 开闭原则    定义 软件实体应当对扩展开放，对修改关闭。当应用需求改变时，在不修改软件实体源代码或者二进制代码的前提下，可以扩展模块的功能，使其满足新的需求。    作用   对软件测">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
 <meta property="article:published_time" content="2020-04-09T09:07:24.000Z">
 <meta property="article:modified_time" content="2020-04-09T09:07:24.000Z">
 <meta property="article:author" content="打马诗人">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打马的部落格" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
 
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"url":"https://musicpoet.top","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","description":"Every man is the master of his own fortune.","author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"}},{"@context":"http://schema.org","@type":"Article","articleSection":"软件体系结构与设计模式","url":"https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/","headline":"OOP设计7大设计原则总结","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","datePublished":"2020-04-09T09:07:24.000Z","dateModified":"2020-04-09T09:07:24.000Z","keywords":"设计模式","description":"Every man is the master of his own fortune.","publisher":{"@type":"Organization","name":"打马的部落格","logo":{"@type":"ImageObject","url":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"}},"author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/"}}]</script>
-
-
-<link href="/fonts.googleapis.com/css?family=Baloo+Bhaijaan%7CInconsolata%7CJosefin+Sans%7CMontserrat" rel="stylesheet">
-<link href="styles.c3f8d35f4c49a6d852da.css" rel="stylesheet">
-
-<link rel="stylesheet" href="../../../../theme.cb657d706bb10a0414c8.css" is="theme">
-
-
-<script src="../../../../config.933d278909597e9fec60.js"></script>
-
-
+  
+  
+  
+  
 <meta name="generator" content="Hexo 4.2.0"></head>
-<body lang="zh-Hans">
-<is-a></is-a>
-<script src="runtime.1720a40670866f12654e.js"></script>
-<script src="polyfills.eefc5b1aaca1e85d221f.js"></script>
-<script src="main.41823d1d138ca02e839b.js"></script>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/giantkevin" target="_blank">
+          <img class="img-circle img-rotate" src="../../../../images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">打马诗人</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Master Student &amp; CV learner</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShanXi, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="../../../../.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="../../../../archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="../../../../categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="../../../../tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="../../../../repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="../../../../books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="../../../../links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="../../../../about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="../../../../https:/github.com/giantkevin" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="../../../../http:/weibo.com/u/3478488222" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="../../../../atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/AI/" rel="tag">AI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CV/" rel="tag">CV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/" rel="tag">技术问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" rel="tag">设计模式 面向对象编程</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="../../../../tags/AI/" style="font-size: 14px;">AI</a> <a href="../../../../tags/CV/" style="font-size: 13px;">CV</a> <a href="../../../../tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/" style="font-size: 13px;">技术问题</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">设计模式</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" style="font-size: 13px;">设计模式 面向对象编程</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">四月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/03/">三月 2020</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="../../../../categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+              </p>
+              <p class="item-title">
+                <a href="../../22/Image-hashing-with-OpenCV-and-Python/" class="title">Image hashing with OpenCV and Python</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-22T05:51:32.000Z" itemprop="datePublished">2020-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="../../../../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="" class="title">OOP设计7大设计原则总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-09T09:07:24.000Z" itemprop="datePublished">2020-04-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="../../../../categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
+              </p>
+              <p class="item-title">
+                <a href="../../../03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="title">针对Github下载速度过慢的解决办法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-25T14:29:42.000Z" itemprop="datePublished">2020-03-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="../../../../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a>
+              </p>
+              <p class="item-title">
+                <a href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/" class="title">高级人工智能之通过搜索解决问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-20T09:02:14.000Z" itemprop="datePublished">2020-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="../../../../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a>
+              </p>
+              <p class="item-title">
+                <a href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/" class="title">高级人工智能之智能Agent</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-20T02:09:26.000Z" itemprop="datePublished">2020-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-开闭原则"><span class="toc-number">1.</span> <span class="toc-text"> 一. 开闭原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">1.2.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法"><span class="toc-number">1.3.</span> <span class="toc-text"> 实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二里氏代换原则lsp原则"><span class="toc-number">2.</span> <span class="toc-text"> 二.里氏代换原则（LSP原则）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-2"><span class="toc-number">2.2.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法-2"><span class="toc-number">2.3.</span> <span class="toc-text"> 实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-依赖倒置原则"><span class="toc-number">3.</span> <span class="toc-text"> 三. 依赖倒置原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-3"><span class="toc-number">3.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-3"><span class="toc-number">3.2.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法-3"><span class="toc-number">3.3.</span> <span class="toc-text"> 实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-单一职责原则"><span class="toc-number">4.</span> <span class="toc-text"> 四. 单一职责原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-4"><span class="toc-number">4.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-4"><span class="toc-number">4.2.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法-4"><span class="toc-number">4.3.</span> <span class="toc-text"> 实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五接口隔离原则isp"><span class="toc-number">5.</span> <span class="toc-text"> 五.接口隔离原则(ISP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-5"><span class="toc-number">5.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口隔离原则和单一职责原则的区别"><span class="toc-number">5.2.</span> <span class="toc-text"> 接口隔离原则和单一职责原则的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-5"><span class="toc-number">5.3.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法-5"><span class="toc-number">5.4.</span> <span class="toc-text"> 实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六迪米特法则"><span class="toc-number">6.</span> <span class="toc-text"> 六.迪米特法则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-6"><span class="toc-number">6.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-6"><span class="toc-number">6.2.</span> <span class="toc-text"> 作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方法-6"><span class="toc-number">6.3.</span> <span class="toc-text"> 实现方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用迪米特法则应注意的点"><span class="toc-number">6.4.</span> <span class="toc-text"> 使用迪米特法则应注意的点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七合成复用原则crp"><span class="toc-number">7.</span> <span class="toc-text"> 七.合成复用原则(CRP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-7"><span class="toc-number">7.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用及重要性"><span class="toc-number">7.2.</span> <span class="toc-text"> 作用及重要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3实现方法"><span class="toc-number">7.3.</span> <span class="toc-text"> 3.实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八总结"><span class="toc-number">8.</span> <span class="toc-text"> 八.总结</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-OOP设计7大设计原则总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OOP设计7大设计原则总结
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="" class="article-date">
+	  <time datetime="2020-04-09T09:07:24.000Z" itemprop="datePublished">2020-04-09</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="../../../../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据 7 条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。下面将为你依次介绍这7条开发原则。</p>
+<h2 id="一-开闭原则"><a class="markdownIt-Anchor" href="#一-开闭原则"></a> 一. 开闭原则</h2>
+<ol>
+<li>
+<h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
+<p>软件实体应当对扩展开放，对修改关闭。当应用需求改变时，在不修改软件实体源代码或者二进制代码的前提下，可以扩展模块的功能，使其满足新的需求。</p>
+</li>
+<li>
+<h3 id="作用"><a class="markdownIt-Anchor" href="#作用"></a> 作用</h3>
+<ul>
+<li>
+<p>对软件测试的影响。软件遵循开闭原则的话，软件测试只需要对扩展的代码进行测试就好了，因为原来的测试代码可以正常运行。</p>
+</li>
+<li>
+<p>可以提高代码的可复用性。粒度越小，被复用的可能性就越大；在面向对象的程序设计中，根据原子和抽象编程可以提高代码的可复用性。</p>
+</li>
+<li>
+<p>可以提高代码的可维护性。遵循开闭原则的软件，其稳定性高和延续性强，从而易于扩展和维护。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3 id="实现方法"><a class="markdownIt-Anchor" href="#实现方法"></a> 实现方法</h3>
+<p>可以通过“抽象约束、封装变化”来实现开闭原则。即通过接口或者抽象类为软件实体定义一个相对稳定的抽象层，从而将相同的可变因素封装在相同的具体实现类中。</p>
+<p>因为抽象灵活性好、适应性广，只要抽象地合理，可以基本保持软件架构的稳定。而软件中容易改变的细节可以从抽象派生的实现类来进行扩展，当软件需要发生变化时，只需要根据需求重新派生一个实现类来扩展就可以了。</p>
+</li>
+</ol>
+<h2 id="二里氏代换原则lsp原则"><a class="markdownIt-Anchor" href="#二里氏代换原则lsp原则"></a> 二.里氏代换原则（LSP原则）</h2>
+<ol>
+<li>
+<h3 id="定义-2"><a class="markdownIt-Anchor" href="#定义-2"></a> 定义</h3>
+<p>继承必须确保超类所拥有的性质在子类中仍然成立。它是继承复用的基础，也反映了基类与子类之间的关系，是对开闭原则的补充，是对实现抽象化的具体步骤的规范。</p>
+</li>
+<li>
+<h3 id="作用-2"><a class="markdownIt-Anchor" href="#作用-2"></a> 作用</h3>
+<ul>
+<li>里氏替换原则是实现开闭原则的重要方式之一。</li>
+<li>它克服了继承中重写父类造成的可复用性变差的缺点。</li>
+<li>它是动作正确性的保证。即类的扩展不会给已有的系统引入新的错误，降低了代码出错的可能性。</li>
+</ul>
+</li>
+<li>
+<h3 id="实现方法-2"><a class="markdownIt-Anchor" href="#实现方法-2"></a> 实现方法</h3>
+<p>里氏替换原则通俗来说就是：**子类可以扩展父类的功能，但是不能改变父类原有的功能。**子类继承父类时，除了添加新的方法完成新增的功能外，尽量不要重写父类的方法。</p>
+<p>如果通过重写父类的方法来完成新的功能，这样写起来虽然简单，但是整个继承体系的复用性会变差，特别是运行多态比较频繁时，程序运行出错的概率会非常大。</p>
+<p>如果程序违背了里氏替换原则，继承类的对象在基类出现的地方那个会出现运行错误。<strong>修正方法是：取消原来的继承关系，重新设计它们之间的关系。</strong></p>
+</li>
+</ol>
+<h2 id="三-依赖倒置原则"><a class="markdownIt-Anchor" href="#三-依赖倒置原则"></a> 三. 依赖倒置原则</h2>
+<ol>
+<li>
+<h3 id="定义-3"><a class="markdownIt-Anchor" href="#定义-3"></a> 定义</h3>
+<p>高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象。</p>
+<p><strong>核心思想：要面向接口编程，不要面向实现编程。</strong></p>
+<p>依赖倒置原则是实现开闭原则的重要途径之一，它降低了客户与实现模块之间的耦合。而使用接口或者抽象类的目的是制定好规范和契约，而不去涉及任何具体的操作，把展现细节的任务交给它们的实现类去完成。</p>
+</li>
+<li>
+<h3 id="作用-3"><a class="markdownIt-Anchor" href="#作用-3"></a> 作用</h3>
+<ul>
+<li>可以降低类之间的耦合性。</li>
+<li>可以提高系统的稳定性。</li>
+<li>可以减少并行开发引起的风险。</li>
+<li>可以提高代码的可读性和可维护性。</li>
+</ul>
+</li>
+<li>
+<h3 id="实现方法-3"><a class="markdownIt-Anchor" href="#实现方法-3"></a> 实现方法</h3>
+<p>我们在具体编程中只要遵循以下4点，就能在项目中满足这个规则：</p>
+<ul>
+<li>每个类尽量提供接口或抽象类，或者两者都具备。</li>
+<li>变量的声明类型尽量是接口或者抽象类。</li>
+<li>任何类都不应该从具体类派生。</li>
+<li>使用继承时尽量遵循里氏替换原则。</li>
+</ul>
+</li>
+</ol>
+<h2 id="四-单一职责原则"><a class="markdownIt-Anchor" href="#四-单一职责原则"></a> 四. 单一职责原则</h2>
+<ol>
+<li>
+<h3 id="定义-4"><a class="markdownIt-Anchor" href="#定义-4"></a> 定义</h3>
+<p><strong>一个类应该有且仅有一个引起它变化的原因，否则类应该被拆分。</strong></p>
+<p>该原则提出对象不应该承担太多职责，如果一个对象承担太多的职责，至少会有以下两个缺点：</p>
+<ul>
+<li>一个职责的变化可能会削弱或者抑制这个类实现其他职责的能力。</li>
+<li>当客户端需要该对象的某一个职责时，不得不将其他不需要的职责全都包含进来，从而造成冗余代码或代码的浪费。</li>
+</ul>
+</li>
+<li>
+<h3 id="作用-4"><a class="markdownIt-Anchor" href="#作用-4"></a> 作用</h3>
+<ul>
+<li>降低类的复杂度。一个类只负责一项职责，其逻辑肯定要比负责多项职责简单得多。</li>
+<li>提高类的可读性。复杂性降低，自然其可读性会提高。</li>
+<li>提高系统的可维护性。可读性提高，那自然更容易维护了。</li>
+</ul>
+</li>
+<li>
+<h3 id="实现方法-4"><a class="markdownIt-Anchor" href="#实现方法-4"></a> 实现方法</h3>
+<p>单一职责原则是最简单但又最难运用的原则，需要设计人员发现类的不同职责并将其分离，再封装到不同的类或模块中。而发现类的多重职责需要设计人员具有较强的分析设计能力和相关重构经验。</p>
+</li>
+</ol>
+<h2 id="五接口隔离原则isp"><a class="markdownIt-Anchor" href="#五接口隔离原则isp"></a> 五.接口隔离原则(ISP)</h2>
+<ol>
+<li>
+<h3 id="定义-5"><a class="markdownIt-Anchor" href="#定义-5"></a> 定义</h3>
+<p>程序员应尽量将臃肿庞大的接口拆分成更小和更具体的接口，让接口只包含客户感兴趣的方法。<strong>一个类对另一个类的依赖应该建立在最小的接口之上。</strong></p>
+</li>
+<li>
+<h3 id="接口隔离原则和单一职责原则的区别"><a class="markdownIt-Anchor" href="#接口隔离原则和单一职责原则的区别"></a> 接口隔离原则和单一职责原则的区别</h3>
+<ul>
+<li>单一职责原则注重的是职责，而接口隔离原则注重的是对接口依赖的隔离。</li>
+<li>单一职责原则主要是约束类，它针对的是程序中的实现和细节；接口隔离原则主要是约束接口，主要针对抽象和程序整体框架的构建。</li>
+</ul>
+</li>
+<li>
+<h3 id="作用-5"><a class="markdownIt-Anchor" href="#作用-5"></a> 作用</h3>
+<ul>
+<li>将臃肿庞大的接口分解为多个粒度小的接口，可以预防外来变更的扩散，提高系统的灵活性和可维护性。</li>
+<li>接口隔离提高了系统的内聚性，减少了对外交互，降低了系统的耦合性。</li>
+<li>如果接口的粒度大小定义合理，能够保证系统的稳定性；但是，<strong>如果定义过小，则会造成接口数量过多，使设计复杂化；如果定义太大，灵活性降低，无法提供定制服务，给整体项目带来无法预料的风险。</strong></li>
+<li>使用多个专门的接口还能够体现对象的层次，因为可以通过接口的继承，实现对总接口的定义。</li>
+<li>能减少项目工程中的代码冗余。</li>
+</ul>
+</li>
+<li>
+<h3 id="实现方法-5"><a class="markdownIt-Anchor" href="#实现方法-5"></a> 实现方法</h3>
+<ul>
+<li>接口尽量小，但是要有限度。一个接口只服务于一个子模块或业务逻辑。</li>
+<li>为依赖接口的类定制服务。只提供调用者需要的方法，屏蔽不需要的方法。</li>
+<li>了解环境，拒绝盲从。每个项目或产品都有选定的环境因素，环境不同，接口拆分的标准就不同深入了解业务逻辑。</li>
+<li>提高内聚，减少对外交互。使接口用最少的方法去完成最多的事情。</li>
+</ul>
+</li>
+</ol>
+<h2 id="六迪米特法则"><a class="markdownIt-Anchor" href="#六迪米特法则"></a> 六.迪米特法则</h2>
+<ol>
+<li>
+<h3 id="定义-6"><a class="markdownIt-Anchor" href="#定义-6"></a> 定义</h3>
+<p><strong>只与你“直接朋友”交谈，不跟“陌生人”说话。</strong></p>
+<p>迪米特法则中的“朋友”是指：当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。</p>
+<p>如果两个软件实体无需直接通信，那么就不应当发生直接的相互调用，可以通过第三方转发该调用。其目的是降低类之间的耦合度，提高模块的相对独立性。</p>
+</li>
+<li>
+<h3 id="作用-6"><a class="markdownIt-Anchor" href="#作用-6"></a> 作用</h3>
+<ul>
+<li>
+<p>降低了类之间的耦合度，提高了模块的相对独立性。</p>
+</li>
+<li>
+<p>由于亲合度降低，从而提高了类的可复用率和系统的扩展性。</p>
+</li>
+</ul>
+<p><em>注：过度使用迪米特法则会使系统产生大量的中介类，从而增加系统的复杂性，使模块之间的通信效率降低。</em></p>
+</li>
+<li>
+<h3 id="实现方法-6"><a class="markdownIt-Anchor" href="#实现方法-6"></a> 实现方法</h3>
+<ul>
+<li>
+<p>从依赖者的角度来说，只依赖应该依赖的对象。</p>
+</li>
+<li>
+<p>从被依赖者的角度说，只暴露应该暴露的方法。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3 id="使用迪米特法则应注意的点"><a class="markdownIt-Anchor" href="#使用迪米特法则应注意的点"></a> 使用迪米特法则应注意的点</h3>
+<ul>
+<li>
+<p>在类的划分上，应该创建弱耦合的类。类与类之间的耦合越弱，就越有利于实现可复用的目标。</p>
+</li>
+<li>
+<p>在类的结构设计上，尽量降低类成员的访问权限。</p>
+</li>
+<li>
+<p>在类的设计上，优先考虑将一个类设置成不变类。</p>
+</li>
+<li>
+<p>在对其他类的引用上，将引用其他对象的次数降到最低。</p>
+</li>
+<li>
+<p>不暴露类的属性成员，而应该提供相应的访问器（set 和 get 方法）。</p>
+</li>
+<li>
+<p>谨慎使用序列化（Serializable）功能。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="七合成复用原则crp"><a class="markdownIt-Anchor" href="#七合成复用原则crp"></a> 七.合成复用原则(CRP)</h2>
+<ol>
+<li>
+<h3 id="定义-7"><a class="markdownIt-Anchor" href="#定义-7"></a> 定义</h3>
+<p>在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。<strong>如果要使用继承关系，必须得严格遵循里氏替换原则。</strong></p>
+</li>
+<li>
+<h3 id="作用及重要性"><a class="markdownIt-Anchor" href="#作用及重要性"></a> 作用及重要性</h3>
+<p>通常类的复用分为继承复用和合成复用两种。继承复用虽然简单易实现，但是它也有很多缺点：</p>
+<ul>
+<li>
+<p>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的，所以这种复用又称为“白箱”复用。</p>
+</li>
+<li>
+<p>子类与父类的耦合度高。父类的实现的任何改变都会导致子类的实现发生变化，这不利于类的扩展与维护。</p>
+</li>
+<li>
+<p>它限制了复用的灵活性。从父类继承而来的实现是静态的，在编译时已经定义，所以在运行时不可能发生变化。</p>
+</li>
+</ul>
+<p>采用组合或者聚合复用时，则可避免这些缺点，同时也具备以下优点：</p>
+<ul>
+<li>维持了类的封装性。因为成分对象的内部细节是新对象看不见的，所以这种复用又称为“黑箱”复用。</li>
+<li>新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。</li>
+<li>复用的灵活性高。这种复用可以在运行时动态进行，新对象可以动态地引用与成分对象类型相同的对象。</li>
+</ul>
+<h3 id="3实现方法"><a class="markdownIt-Anchor" href="#3实现方法"></a> 3.实现方法</h3>
+<p>通过将已有的对象纳入新对象中，作为新对象的成员对象来实现的，新对象可以调用已有对象的功能，从而达到复用。</p>
+</li>
+</ol>
+<h2 id="八总结"><a class="markdownIt-Anchor" href="#八总结"></a> 八.总结</h2>
+<p>以上介绍的7种设计原则是软件设计模式必须遵循的原则，各种原则要求的侧重点不同。</p>
+<ul>
+<li>
+<p>开闭原则是总纲，它告诉我们要对扩展开放，对修改关闭。</p>
+</li>
+<li>
+<p>里氏替换原则告诉我们不要破坏继承体系。</p>
+</li>
+<li>
+<p>依赖倒置原则告诉我们要面向接口编程。</p>
+</li>
+<li>
+<p>单一职责原则告诉我们实现类要职责单一。</p>
+</li>
+<li>
+<p>接口隔离原则告诉我们在设计接口的时候要精简单一。</p>
+</li>
+<li>
+<p>迪米特法则告诉我们要降低耦合度。</p>
+</li>
+<li>
+<p>合成复用原则告诉我们要优先使用组合或者聚合关系复用，少用继承关系复用。</p>
+</li>
+</ul>
+<hr />
+<p>以上内容整理自 <a href="http://c.biancheng.net/design_pattern/" target="_blank" rel="noopener">C语言中文网 </a>，感谢你的阅读。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/" title="OOP设计7大设计原则总结" target="_blank" rel="external">https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/giantkevin" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="../../../../images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/giantkevin" target="_blank"><span class="text-dark">打马诗人</span><small class="ml-1x">Master Student &amp; CV learner</small></a></h3>
+        <div>做颗星星，有棱有角，还会发光。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="../../22/Image-hashing-with-OpenCV-and-Python/" title="Image hashing with OpenCV and Python"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="../../../03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="针对Github下载速度过慢的解决办法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="../../../../images/donate/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="../../../../images/donate/wechatpayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="../../../../https:/github.com/giantkevin" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="../../../../http:/weibo.com/u/3478488222" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="../../../../atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="../../../../js/plugin.min.js"></script>
+
+
+<script src="../../../../js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="../../../../js/insight.js"></script>
+
+
+
+    <script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:musicpoet.top ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
 </body>
 </html>
