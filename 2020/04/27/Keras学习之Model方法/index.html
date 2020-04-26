@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Keras学习之Model方法 - 打马的部落格</title>
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<link rel="canonical" href="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/">
+<link rel="icon" type="image/x-icon" href="../../../../favicon.ico">
+
+<meta name="description" content="在学习深度学习的时候，Keras逐渐成了我最喜欢使用的深度学习框架，因为用它搭建模型很方面，而且相比较Tensorflow来说要容易很多。 因为也是一个初学者，经常会遇到很多不会的方法，所以难免需要查询官方文档进行学习。学习任何东西都是一个从陌生到熟悉的过程，因此想在博客里新开一个tag，专门放置一些我刚遇到的还不太会使用的方法，也方便以后学习。 今天这篇博客的话，主要是学习Keras中Model">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Keras学习之Model方法">
+<meta property="og:url" content="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="打马的部落格">
+<meta property="og:description" content="在学习深度学习的时候，Keras逐渐成了我最喜欢使用的深度学习框架，因为用它搭建模型很方面，而且相比较Tensorflow来说要容易很多。 因为也是一个初学者，经常会遇到很多不会的方法，所以难免需要查询官方文档进行学习。学习任何东西都是一个从陌生到熟悉的过程，因此想在博客里新开一个tag，专门放置一些我刚遇到的还不太会使用的方法，也方便以后学习。 今天这篇博客的话，主要是学习Keras中Model">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
+<meta property="article:published_time" content="2020-04-26T17:23:17.000Z">
+<meta property="article:modified_time" content="2020-04-26T17:23:17.000Z">
+<meta property="article:author" content="打马诗人">
+<meta property="article:tag" content="Keras">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
+
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"url":"https://musicpoet.top","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","description":"Every man is the master of his own fortune.","author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"}},{"@context":"http://schema.org","@type":"Article","articleSection":"深度学习小技巧","url":"https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/","headline":"Keras学习之Model方法","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","datePublished":"2020-04-26T17:23:17.000Z","dateModified":"2020-04-26T17:23:17.000Z","keywords":"Keras","description":"Every man is the master of his own fortune.","publisher":{"@type":"Organization","name":"打马的部落格","logo":{"@type":"ImageObject","url":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"}},"author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/"}}]</script>
+
+
+<link rel="alternate" type="application/atom+xml" title="打马的部落格" href="../../../../atom.xml">
+
+<link href="https/fonts.googleapis.com/css?family=Baloo+Bhaijaan%7CInconsolata%7CJosefin+Sans%7CMontserrat" rel="stylesheet">
+<link href="styles.c3f8d35f4c49a6d852da.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../../../../theme.cb657d706bb10a0414c8.css" is="theme">
+
+
+<script src="../../../../config.0109af4eff72d15354d0.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body lang="zh-Hans">
+<is-a></is-a>
+<script src="runtime.1720a40670866f12654e.js"></script>
+<script src="polyfills.eefc5b1aaca1e85d221f.js"></script>
+<script src="main.41823d1d138ca02e839b.js"></script>
+</body>
+</html>
