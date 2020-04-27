@@ -1,47 +1,106 @@
-<!doctype html>
-<html lang="zh-Hans">
-<head>
-<meta charset="utf-8">
-<title>Keras学习之Model方法 - 打马的部落格</title>
-<base href="/">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/">
-<link rel="icon" type="image/x-icon" href="../../../../favicon.ico">
-
-<meta name="description" content="在学习深度学习的时候，Keras逐渐成了我最喜欢使用的深度学习框架，因为用它搭建模型很方面，而且相比较Tensorflow来说要容易很多。 因为也是一个初学者，经常会遇到很多不会的方法，所以难免需要查询官方文档进行学习。学习任何东西都是一个从陌生到熟悉的过程，因此想在博客里新开一个tag，专门放置一些我刚遇到的还不太会使用的方法，也方便以后学习。 今天这篇博客的话，主要是学习Keras中Model">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keras学习之Model方法">
-<meta property="og:url" content="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/index.html">
-<meta property="og:site_name" content="打马的部落格">
-<meta property="og:description" content="在学习深度学习的时候，Keras逐渐成了我最喜欢使用的深度学习框架，因为用它搭建模型很方面，而且相比较Tensorflow来说要容易很多。 因为也是一个初学者，经常会遇到很多不会的方法，所以难免需要查询官方文档进行学习。学习任何东西都是一个从陌生到熟悉的过程，因此想在博客里新开一个tag，专门放置一些我刚遇到的还不太会使用的方法，也方便以后学习。 今天这篇博客的话，主要是学习Keras中Model">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
-<meta property="article:published_time" content="2020-04-26T17:23:17.000Z">
-<meta property="article:modified_time" content="2020-04-26T17:23:17.000Z">
-<meta property="article:author" content="打马诗人">
-<meta property="article:tag" content="Keras">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/21/JG5aL9.jpg">
-
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"url":"https://musicpoet.top","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","description":"Every man is the master of his own fortune.","author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"}},{"@context":"http://schema.org","@type":"Article","articleSection":"深度学习小技巧","url":"https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/","headline":"Keras学习之Model方法","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg","datePublished":"2020-04-26T17:23:17.000Z","dateModified":"2020-04-26T17:23:17.000Z","keywords":"Keras","description":"Every man is the master of his own fortune.","publisher":{"@type":"Organization","name":"打马的部落格","logo":{"@type":"ImageObject","url":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"}},"author":{"@type":"Person","name":"打马诗人","description":"Everyman is the master of his own fortune.","image":"https://musicpoet.top/https:/s1.ax1x.com/2020/04/21/JG5aL9.jpg"},"inLanguage":{"@type":"Language","alternateName":"zh-Hans"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/"}}]</script>
-
-
-<link rel="alternate" type="application/atom+xml" title="打马的部落格" href="../../../../atom.xml">
-
-<link href="//cdn.jsdelivr.net/gh/ikeq/hexo-theme-inside@version/source/https//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet">
-<link href="//cdn.jsdelivr.net/gh/ikeq/hexo-theme-inside@version/source/styles.c3f8d35f4c49a6d852da.css" rel="stylesheet">
-
-<link rel="stylesheet" href="../../../../theme.cb657d706bb10a0414c8.css" is="theme">
-
-
-<script src="../../../../config.f45ec4235490a9db9c71.js"></script>
-
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-<body lang="zh-Hans">
-<is-a></is-a>
-<script src="//cdn.jsdelivr.net/gh/ikeq/hexo-theme-inside@version/source/runtime.1720a40670866f12654e.js"></script>
-<script src="//cdn.jsdelivr.net/gh/ikeq/hexo-theme-inside@version/source/polyfills.eefc5b1aaca1e85d221f.js"></script>
-<script src="//cdn.jsdelivr.net/gh/ikeq/hexo-theme-inside@version/source/main.41823d1d138ca02e839b.js"></script>
-</body>
-</html>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Every man is the master of his own fortune."><meta name="keywords" content="打马诗人"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="../../../../css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="../../../../css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="../../../../favicon.ico"><link rel="bookmark" href="../../../../favicon.ico"><link rel="apple-touch-icon" href="../../../../apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="../../../../apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="../../../../atom.xml"><title>Keras学习之Model方法 | 打马的部落格</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Keras学习之Model方法</h1><a id="logo" href="../../../../.">打马的部落格</a><p class="description">Hello World.</p></div><div id="nav-menu"><a href="../../../../." class="current"><i class="fa fa-home"> 首页</i></a><a href="../../../../archives/"><i class="fa fa-archive"> 归档</i></a><a href="../../../../about/"><i class="fa fa-user"> 关于</i></a><a href="../../../../atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Keras学习之Model方法</h1><div class="post-meta"><a href="#comments" class="comment-count"></a><p><span class="date">Apr 27, 2020</span><span><a href="../../../../categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="category">深度学习小技巧</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p>在学习深度学习的时候，Keras逐渐成了我最喜欢使用的深度学习框架，因为用它搭建模型很方面，而且相比较Tensorflow来说要容易很多。</p>
+<p>因为也是一个初学者，经常会遇到很多不会的方法，所以难免需要查询官方文档进行学习。学习任何东西都是一个从陌生到熟悉的过程，因此想在博客里新开一个tag，专门放置一些我刚遇到的还不太会使用的方法，也方便以后学习。</p>
+<p>今天这篇博客的话，主要是学习Keras中Model这个方法的使用，文中的例子来自Keras的<a href="https://keras-cn.readthedocs.io/en/latest/legacy/models/model/#model" target="_blank" rel="noopener">官方文档</a>，如果感兴趣的话，可以直接点击蓝色的超链接进行学习。</p>
+<h3 id="keras的泛型模型接口"><a class="markdownIt-Anchor" href="#keras的泛型模型接口"></a> Keras的泛型模型接口</h3>
+<p>Keras的泛型模型<code>Model</code>, 即广义的拥有输入和输出的模型，我们使用Model来初始化一个泛型模型：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from keras.models <span class="built_in">import</span> Model</span><br><span class="line">from keras.layers <span class="built_in">import</span> Input, Dense</span><br><span class="line"></span><br><span class="line"><span class="attr">a</span> = Input(<span class="attr">shape=(32,</span> ))</span><br><span class="line"><span class="attr">b</span> = Dense(<span class="number">32</span>)(a)</span><br><span class="line"><span class="attr">model</span> = Model(<span class="attr">input=a,</span> <span class="attr">output=b)</span></span><br></pre></td></tr></table></figure>
+<p>在这里，我们的模型以<code>a</code>为输入，以<code>b</code>为输出，同样我们可以构造拥有多输入和多输出的模型：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = <span class="constructor">Model(<span class="params">input</span>=[<span class="params">a1</span>, <span class="params">a2</span>], <span class="params">output</span>=[<span class="params">b1</span>, <span class="params">b2</span>, <span class="params">b3</span>])</span></span><br></pre></td></tr></table></figure>
+<h3 id="常用的model属性"><a class="markdownIt-Anchor" href="#常用的model属性"></a> 常用的Model属性</h3>
+<ul>
+<li><code>model.layers</code>：组成模型图的各个层</li>
+<li><code>model.inputs</code>：模型的输入张量列表</li>
+<li><code>model.outputs</code>：模型的输出张量列表</li>
+</ul>
+<h3 id="model模型方法"><a class="markdownIt-Anchor" href="#model模型方法"></a> Model模型方法</h3>
+<p><strong>compile</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(self, optimizer, loss, metrics=[], <span class="attribute">loss_weights</span>=None, <span class="attribute">sample_weight_model</span>=None)</span><br></pre></td></tr></table></figure>
+<p>本函数<strong>编译模型以供训练</strong>，参数有：</p>
+<ul>
+<li>optimizer：优化器，为预定义优化器名或优化器对象</li>
+<li>loss：目标函数，为预定义损失函数名或者一个目标函数</li>
+<li>metrics：列表， 包含评估模型在训练和测试时的性能指标，典型用法是<code>metrics=['accuracy']</code>。如果要在多输出模型中为不同的输出指定不同的指标，可向该参数传递一个字典，例如<code>metrics={'output_a': 'accuracy'}</code></li>
+<li>sample_weight_mode：如果你需要按时间步为样本赋权（2D权矩阵），将该值设为“temporal”。默认为“None”，代表按样本赋权（1D权）。如果模型有多个输出，可以向该参数传入指定sample_weight_mode的字典或列表。在下面<code>fit</code>函数的解释中有相关的参考内容。</li>
+<li>kwargs：使用TensorFlow作为后端请忽略该参数，若使用Theano作为后端，kwargs的值将会传递给 K.function</li>
+</ul>
+<h3 id="fit"><a class="markdownIt-Anchor" href="#fit"></a> fit</h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fit(self, x, y, <span class="attribute">batch_size</span>=32, <span class="attribute">np_epoch</span>=10, <span class="attribute">verbose</span>=1, callbacks=[], <span class="attribute">validation_split</span>=0.0, <span class="attribute">validation_data</span>=None, <span class="attribute">shuffle</span>=<span class="literal">True</span>, <span class="attribute">class_weight</span>=None, <span class="attribute">sample_weight</span>=None)</span><br></pre></td></tr></table></figure>
+<p>本函数<strong>用以训练模型</strong>，参数有：</p>
+<ul>
+<li>x：输入数据。如果模型只有一个输入，那么x的类型是numpy array，如果模型有多个输入，那么x的类型应当为list，list的元素是对应于各个输入的numpy array。</li>
+<li>y：标签， numpy array。如果模型有多个输出，可以传入一个numpy array的list。如果模型的输出拥有名字，则可以传入一个字典，将输出名与其标签对应起来。</li>
+<li>batch_size：整数，指定进行梯度下降时每个batch包含的样本数。训练时一个batch的样本会被计算一次梯度下降，使目标函数优化一步。</li>
+<li>np_epoch：整数，训练的轮数，训练数据将会被遍历nb_epoch次。Keras中nb开头的变量均为&quot;number of&quot;的意思。</li>
+<li>verbose：日志显示，0为不在标准输出流输出日志信息，1为输出进度条记录，2为每个epoch输出一行记录。</li>
+<li>callbacks：list，其中的元素是<code>keras.callbacks.Callback</code>的对象。这个list中的回调函数将会在训练过程中的适当时机被调用。</li>
+<li>validation_split：0~1之间的浮点数，用来<strong>指定训练集的一定比例数据作为验证集</strong>。验证集将不参与训练，并在每个epoch结束后测试的模型的指标，如损失函数、精确度等。</li>
+<li>validation_data：形式为（X，y）或（X，y，sample_weights）的tuple，是指定的验证集。此参数将覆盖validation_spilt。</li>
+<li>class_weight：字典，将不同的类别映射为不同的权值，该参数用来在训练过程中调整损失函数（只能用于训练）。该参数在处理非平衡的训练数据（某些类的训练样本数很少）时，可以使得损失函数对样本数不足的数据更加关注。</li>
+<li>sample_weight：权值的numpy array，用于在训练时调整损失函数（仅用于训练）。可以传递一个1D的与样本等长的向量用于对样本进行1对1的加权，或者在面对时序数据时，传递一个的形式为（samples，sequence_length）的矩阵来为每个时间步上的样本赋不同的权。这种情况下请确定在编译模型时添加了<code>sample_weight_mode='temporal'</code>。</li>
+</ul>
+<p><code>fit</code>函数返回一个<code>History</code>对象，其<code>History.history</code>属性，记录了损失函数和其他指标的数值随epoch变化的情况，如果有验证集的话，也包含了验证集的这些指标的变化情况。</p>
+<h3 id="evaluate"><a class="markdownIt-Anchor" href="#evaluate"></a> evaluate</h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">evaluate(self, x, y, <span class="attribute">batch_size</span>=32, <span class="attribute">verbose</span>=1, <span class="attribute">sample_weight</span>=None)</span><br></pre></td></tr></table></figure>
+<p>本函数按batch计算<strong>在某些输入数据上模型的误差</strong>，其参数有：</p>
+<ul>
+<li>x：输入数据，与<code>fit</code>一样，是numpy array或numpy array的list。</li>
+<li>y：标签，numpy array。</li>
+<li>batch_size：整数，含义同<code>fit</code>的同名参数。</li>
+<li>verbose：含义同<code>fit</code>的同名参数，但只能取0或1。</li>
+<li>sample_weight：numpy array，含义同<code>fit</code>的同名参数。</li>
+</ul>
+<p>本函数返回一个测试误差的标量值（如果模型没有其他评价指标），或一个标量的list（如果模型还有其他的评价指标）。<code>model.metrics_names</code>将给出list中各个值的含义。</p>
+<h3 id="predict"><a class="markdownIt-Anchor" href="#predict"></a> predict</h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict(self, x, <span class="attribute">batch_size</span>=32, <span class="attribute">verbose</span>=0)</span><br></pre></td></tr></table></figure>
+<p>本函数按batch获得<strong>输入数据对应的输出</strong>，其参数有：</p>
+<p>函数的返回值是预测值的numpy array</p>
+<h3 id="fit_generator"><a class="markdownIt-Anchor" href="#fit_generator"></a> fit_generator</h3>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fit<span class="constructor">_generator(<span class="params">self</span>, <span class="params">generator</span>, <span class="params">sample_per_epoch</span>, <span class="params">nb_epoch</span>, <span class="params">verbose</span>=1, <span class="params">callbacks</span>=[], <span class="params">validation_data</span>=None, <span class="params">nb_val_samples</span>=None, <span class="params">class_weight</span>=&#123;&#125;, <span class="params">max_q_size</span>=10)</span></span><br></pre></td></tr></table></figure>
+<p>利用Python的生成器，<strong>逐个生成数据的batch并进行训练</strong>。生成器与模型将并行执行以提高效率。</p>
+<p>函数的参数是：</p>
+<ul>
+<li>generator：生成器函数，生成器的输出应该为：
+<ul>
+<li>一个形如（inputs，targets）的tuple</li>
+<li>一个形如（inputs, targets,sample_weight）的tuple。所有的返回值都应该包含相同数目的样本。生成器将无限在数据集上循环。每个epoch以经过模型的样本数达到<code>samples_per_epoch</code>时，记一个epoch结束</li>
+</ul>
+</li>
+<li>samples_per_epoch：整数，当模型处理的样本达到此数目时计一个epoch结束，执行下一个epoch</li>
+<li>verbose：日志显示，0为不在标准输出流输出日志信息，1为输出进度条记录，2为每个epoch输出一行记录</li>
+<li>validation_data：具有以下三种形式之一
+<ul>
+<li>生成验证集的生成器</li>
+<li>一个形如（inputs,targets）的tuple</li>
+<li>一个形如（inputs,targets，sample_weights）的tuple</li>
+</ul>
+</li>
+<li>nb_val_samples：仅当<code>validation_data</code>是生成器时使用，用以限制在每个epoch结束时用来验证模型的验证集样本数，功能类似于<code>samples_per_epoch</code></li>
+<li>max_q_size：生成器队列的最大容量</li>
+</ul>
+<p>函数返回一个<code>History</code>对象。</p>
+<p>一个简单的例子。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def generate_arrays_from_file(<span class="type">path</span>):</span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    f = <span class="keyword">open</span>(<span class="type">path</span>)</span><br><span class="line">    <span class="keyword">for</span> <span class="type">line</span> <span class="keyword">in</span> f：</span><br><span class="line">        # <span class="keyword">create</span> numpy <span class="keyword">array</span> <span class="keyword">of</span> <span class="keyword">input</span> data</span><br><span class="line">        # <span class="keyword">and</span> labels, <span class="keyword">from</span> <span class="keyword">each</span> <span class="type">line</span> <span class="keyword">in</span> the file</span><br><span class="line">        x, y = process_line(<span class="type">line</span>)</span><br><span class="line">        yield(x, y)</span><br><span class="line">     f.<span class="keyword">close</span>()</span><br><span class="line">     </span><br><span class="line">model.fit_generator(generate_arrays_from_file(<span class="string">'/my_file.txt'</span>),samples_per_epoch=<span class="number">10000</span>, nb_epoch=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="evaluate_generator"><a class="markdownIt-Anchor" href="#evaluate_generator"></a> evaluate_generator</h3>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">evaluate<span class="constructor">_generator(<span class="params">self</span>, <span class="params">generator</span>, <span class="params">val_samples</span>, <span class="params">max_q_size</span>=10)</span></span><br></pre></td></tr></table></figure>
+<p>本函数使用一个生成器作为数据源，来评估模型，生成器应返回与<code>test_on_batch</code>的输入数据相同类型的数据。</p>
+<p>函数的参数是：</p>
+<ul>
+<li>generator：生成输入batch数据的生成器</li>
+<li>val_samples：生成器应该返回的总样本数</li>
+<li>max_q_size：生成器队列的最大容量</li>
+<li>nb_worker：使用基于进程的多线程处理时的进程数</li>
+<li>pickle_safe：若设置为True，则使用基于进程的线程。注意因为它的实现依赖于多进程处理，不可传递不可pickle的参数到生成器中，因为它们不能轻易的传递到子进程中。</li>
+</ul>
+<h3 id="predict_generator"><a class="markdownIt-Anchor" href="#predict_generator"></a> predict_generator</h3>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict<span class="constructor">_generator(<span class="params">self</span>, <span class="params">generator</span>, <span class="params">val_samples</span>, <span class="params">max_q_size</span>=10, <span class="params">nb_worker</span>=1, <span class="params">pickle_safe</span>=False)</span></span><br></pre></td></tr></table></figure>
+<p>从一个生成器上获取数据并进行预测，生成器应返回与<code>predict_on_batch</code>输入类似的数据。</p>
+<p>函数的参数是：</p>
+<ul>
+<li>generator：生成输入batch数据的生成器</li>
+<li>val_samples：生成器应该返回的总样本数</li>
+<li>max_q_size：生成器队列的最大容量</li>
+<li>nb_worker：使用基于进程的多线程处理时的进程数</li>
+<li>pickle_safe：若设置为True，则使用基于进程的线程。注意因为它的实现依赖于多进程处理，不可传递不可pickle的参数到生成器中，因为它们不能轻易的传递到子进程中。</li>
+</ul>
+<hr />
+</div><div class="post-copyright"><blockquote><p>原文作者: 打马诗人</p><p>原文链接: <a href="../../../../https:/musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/">https://musicpoet.top/2020/04/27/Keras学习之Model方法/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="../../../../tags/Keras/">Keras</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="../../22/Image-hashing-with-OpenCV-and-Python/" class="next">Image hashing with OpenCV and Python</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#keras的泛型模型接口"><span class="toc-text"> Keras的泛型模型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的model属性"><span class="toc-text"> 常用的Model属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model模型方法"><span class="toc-text"> Model模型方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fit"><span class="toc-text"> fit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#evaluate"><span class="toc-text"> evaluate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#predict"><span class="toc-text"> predict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fit_generator"><span class="toc-text"> fit_generator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#evaluate_generator"><span class="toc-text"> evaluate_generator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#predict_generator"><span class="toc-text"> predict_generator</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">Keras学习之Model方法</a></li><li class="post-list-item"><a class="post-list-link" href="../../22/Image-hashing-with-OpenCV-and-Python/">Image hashing with OpenCV and Python</a></li><li class="post-list-item"><a class="post-list-link" href="../../09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/">OOP设计7大设计原则总结</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">针对Github下载速度过慢的解决办法</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">高级人工智能之通过搜索解决问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/">高级人工智能之智能Agent</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">创建型设计模式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/">深度学习小技巧</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="../../../../tags/Keras/" style="font-size: 15px;">Keras</a> <a href="../../../../tags/CV/" style="font-size: 15px;">CV</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="../../../../tags/AI/" style="font-size: 15px;">AI</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" style="font-size: 15px;">设计模式 面向对象编程</a> <a href="../../../../tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/" style="font-size: 15px;">技术问题</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/">2020</a><span class="archive-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="../../../../." rel="nofollow">打马诗人.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="../../../../js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="../../../../js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="../../../../js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="../../../../share/css/share.css"><script type="text/javascript" src="../../../../share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="../../../../share/js/qrcode.js" charset="utf-8"></script></body></html>
