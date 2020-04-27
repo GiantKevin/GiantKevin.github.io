@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Every man is the master of his own fortune."><meta name="keywords" content="打马诗人"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="../../../../css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="../../../../css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="../../../../favicon.ico"><link rel="bookmark" href="../../../../favicon.ico"><link rel="apple-touch-icon" href="../../../../apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="../../../../apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="../../../../atom.xml"><title>Keras学习之ImageDataGenerator方法 | 打马的部落格</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Keras学习之ImageDataGenerator方法</h1><a id="logo" href="../../../../.">打马的部落格</a><p class="description">做颗星星，有棱有角，还会发光。</p></div><div id="nav-menu"><a href="../../../../." class="current"><i class="fa fa-home"> 首页</i></a><a href="../../../../archives/"><i class="fa fa-archive"> 归档</i></a><a href="../../../../about/"><i class="fa fa-user"> 关于</i></a><a href="../../../../atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Keras学习之ImageDataGenerator方法</h1><div class="post-meta"><a href="#comments" class="comment-count"></a><p><span class="date">Apr 27, 2020</span><span><a href="../../../../categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="category">深度学习小技巧</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p><code>ImageDataGenerator</code>是Keras中用于图像预处理的一个方法，当我们的数据集较小时，使用这个方法可以增加我们的数据，因而使训练的结果更加准确。</p>
+<p>这个方法当中的一些参数我一直是很蒙的状态，不知道预设这些参数后对数据产生何种影响。因此想借助官方的中文文档，加深我对这些数据的理解。老规矩，这里附上官方文档的超链接，点击<a href="https://keras.io/zh/preprocessing/image/#imagedatagenerator" target="_blank" rel="noopener">图像预处理ImageDataGenerator</a>查看。</p>
+<h3 id="方法的引入"><a class="markdownIt-Anchor" href="#方法的引入"></a> 方法的引入</h3>
+<p>首先在使用这个方法之前，应该学习如何在代码中引入，方法如下：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Keras</span><br><span class="line"><span class="title">from</span> keras.processing.image <span class="keyword">import</span> ImageDataGenerator</span><br></pre></td></tr></table></figure>
+<h3 id="参数"><a class="markdownIt-Anchor" href="#参数"></a> 参数</h3>
+<p>在引入<code>ImageDataGenerator</code>方法之后，接下来我们来看一下，其中的方法中的参数：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">keras.preprocessing.image.ImageDataGenerator(<span class="attribute">featurewise_center</span>=<span class="literal">False</span>,  </span><br><span class="line">                                             <span class="attribute">samplewise_center</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">featurewise_std_normalization</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">samplewise_std_normalization</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">zca_whitening</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">zca_epsilon</span>=1e-06, </span><br><span class="line">                                             <span class="attribute">rotation_range</span>=0, </span><br><span class="line">                                             <span class="attribute">width_shift_range</span>=0.0, </span><br><span class="line">                                             <span class="attribute">height_shift_range</span>=0.0, </span><br><span class="line">                                             <span class="attribute">brightness_range</span>=None, </span><br><span class="line">                                             <span class="attribute">shear_range</span>=0.0, </span><br><span class="line">                                             <span class="attribute">zoom_range</span>=0.0, </span><br><span class="line">                                             <span class="attribute">channel_shift_range</span>=0.0, </span><br><span class="line">                                             <span class="attribute">fill_mode</span>=<span class="string">'nearest'</span>, </span><br><span class="line">                                             <span class="attribute">cval</span>=0.0, </span><br><span class="line">                                             <span class="attribute">horizontal_flip</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">vertical_flip</span>=<span class="literal">False</span>, </span><br><span class="line">                                             <span class="attribute">rescale</span>=None, </span><br><span class="line">                                             <span class="attribute">preprocessing_function</span>=None, </span><br><span class="line">                                             <span class="attribute">data_format</span>=None, </span><br><span class="line">                                             <span class="attribute">validation_split</span>=0.0, </span><br><span class="line">                                             <span class="attribute">dtype</span>=None)</span><br></pre></td></tr></table></figure>
+<p>这个方法的参数，说实话真的很多，也侧面说明该方法的强大，下面我们挑几个常用的参数来进行解释，解释这些参数的作用与如何设置。</p>
+<ul>
+<li>
+<p><strong>featurewise_center</strong>: 布尔值。将输入数据的均值设置为 0，逐特征进行。</p>
+</li>
+<li>
+<p><strong>samplewise_center</strong>: 布尔值。将每个样本的均值设置为 0。</p>
+</li>
+<li>
+<p><strong>featurewise_std_normalization</strong>: Boolean. 布尔值。将输入除以数据标准差，逐特征进行。</p>
+</li>
+<li>
+<p><strong>samplewise_std_normalization</strong>: 布尔值。将每个输入除以其标准差。</p>
+</li>
+<li>
+<p><strong>rotation_range</strong>: 整数。随机旋转的度数范围。</p>
+</li>
+<li>
+<p>width_shift_range: 浮点数、一维数组或整数</p>
+<ul>
+<li>float: 如果 &lt;1，则是除以总宽度的值，或者如果 &gt;=1，则为像素值。</li>
+<li>1-D 数组: 数组中的随机元素。</li>
+<li>int: 来自间隔 <code>(-width_shift_range, +width_shift_range)</code> 之间的整数个像素。</li>
+<li><code>width_shift_range=2</code> 时，可能值是整数 <code>[-1, 0, +1]</code>，与 <code>width_shift_range=[-1, 0, +1]</code> 相同；而 <code>width_shift_range=1.0</code> 时，可能值是 <code>[-1.0, +1.0)</code> 之间的浮点数。</li>
+</ul>
+</li>
+<li>
+<p>height_shift_range: 浮点数、一维数组或整数</p>
+<ul>
+<li>float: 如果 &lt;1，则是除以总宽度的值，或者如果 &gt;=1，则为像素值。</li>
+<li>1-D array-like: 数组中的随机元素。</li>
+<li>int: 来自间隔 <code>(-height_shift_range, +height_shift_range)</code> 之间的整数个像素。</li>
+<li><code>height_shift_range=2</code> 时，可能值是整数 <code>[-1, 0, +1]</code>，与 <code>height_shift_range=[-1, 0, +1]</code> 相同；而 <code>height_shift_range=1.0</code> 时，可能值是 <code>[-1.0, +1.0)</code> 之间的浮点数。</li>
+</ul>
+</li>
+<li>
+<p><strong>shear_range</strong>: 浮点数。剪切强度（以弧度<strong>逆时针</strong>方向剪切角度）。</p>
+</li>
+<li>
+<p><strong>zoom_range</strong>: 浮点数 或 <code>[lower, upper]</code>。随机缩放范围。如果是浮点数，<code>[lower, upper] = [1-zoom_range, 1+zoom_range]</code>。</p>
+</li>
+<li>
+<p><strong>horizontal_flip</strong>: 布尔值。随机水平翻转。</p>
+</li>
+<li>
+<p><strong>vertical_flip</strong>: 布尔值。随机垂直翻转。</p>
+</li>
+<li>
+<p><strong>rescale</strong>: 重缩放因子。默认为 None。如果是 None 或 0，不进行缩放，否则将数据乘以所提供的值（在应用任何其他转换之前）。</p>
+</li>
+<li>
+<p><strong>preprocessing_function</strong>: 应用于每个输入的函数。这个函数会在任何其他改变之前运行。这个函数需要一个参数：一张图像（秩为 3 的 Numpy 张量），并且应该输出一个同尺寸的 Numpy 张量。</p>
+</li>
+<li>
+<p><strong>validation_split</strong>: 浮点数。Float. 保留用于验证的图像的比例（严格在0和1之间）。</p>
+</li>
+<li>
+<p><strong>dtype</strong>: 生成数组使用的数据类型。</p>
+</li>
+</ul>
+<h3 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h3>
+<p>使用<code>.flow(x, y)</code>的例子：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">（x_train, y_train), (x_test, y_test) = cifar10.load_data()</span><br><span class="line">y_train = np_utils.to_categorical(y_train, num_classes)</span><br><span class="line">y_test = np_utils.to_categorical(y_test, num_classes)</span><br><span class="line"></span><br><span class="line">datagen = ImageDataGenerator(</span><br><span class="line">    <span class="attribute">featurewise_center</span>=<span class="literal">True</span>,</span><br><span class="line">    <span class="attribute">featurewise_std_normalization</span>=<span class="literal">True</span>,</span><br><span class="line">    <span class="attribute">rotation_range</span>=20,</span><br><span class="line">    <span class="attribute">width_shift_range</span>=0.2,</span><br><span class="line">    <span class="attribute">height_shift_range</span>=0.2,</span><br><span class="line">    <span class="attribute">horizontal_flip</span>=<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 计算特征归一化所需的数量</span></span><br><span class="line"><span class="comment"># （如果应用 ZCA 白化，将计算标准差，均值，主成分）</span></span><br><span class="line">datagen.fit(x_train)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 使用实时数据增益的批数据对模型进行拟合：</span></span><br><span class="line">model.fit_generator(datagen.flow(x_train, y_train, <span class="attribute">batch_size</span>=32),steps_per_epoch=len(x_train) / 32, <span class="attribute">epochs</span>=epochs)</span><br></pre></td></tr></table></figure>
+<h3 id="flow"><a class="markdownIt-Anchor" href="#flow"></a> flow</h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flow(x, <span class="attribute">y</span>=None, <span class="attribute">batch_size</span>=32, <span class="attribute">shuffle</span>=<span class="literal">True</span>, <span class="attribute">sample_weight</span>=None, <span class="attribute">seed</span>=None, <span class="attribute">save_to_dir</span>=None, <span class="attribute">save_format</span>=<span class="string">'png'</span>, <span class="attribute">subset</span>=None)</span><br></pre></td></tr></table></figure>
+<p>采集数据和标签数组，生成批量增强数据。</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><strong>x</strong>: 输入数据。秩为 4 的 Numpy 矩阵或元组。如果是元组，第一个元素应该包含图像，第二个元素是另一个 Numpy 数组或一列 Numpy 数组，它们不经过任何修改就传递给输出。可用于将模型杂项数据与图像一起输入。对于灰度数据，图像数组的通道轴的值应该为 1，而对于 RGB 数据，其值应该为 3。</li>
+<li><strong>y</strong>: 标签。</li>
+<li><strong>batch_size</strong>: 整数 (默认为 32)。</li>
+<li><strong>shuffle</strong>: 布尔值 (默认为 True)。</li>
+<li><strong>sample_weight</strong>: 样本权重。</li>
+<li><strong>seed</strong>: 整数（默认为 None）。</li>
+<li><strong>save_to_dir</strong>: None 或 字符串（默认为 None）。这使您可以选择指定要保存的正在生成的增强图片的目录（用于可视化您正在执行的操作）。</li>
+<li><strong>save_prefix</strong>: 字符串（默认 <code>''</code>）。保存图片的文件名前缀（仅当 <code>save_to_dir</code> 设置时可用）。</li>
+<li><strong>save_format</strong>: “png”, “jpeg” 之一（仅当 <code>save_to_dir</code> 设置时可用）。默认：“png”。</li>
+<li><strong>subset</strong>: 数据子集 (“training” 或 “validation”)，如果 在 <code>ImageDataGenerator</code> 中设置了 <code>validation_split</code>。</li>
+</ul>
+<p><strong>返回</strong></p>
+<p>一个生成元组 <code>(x, y)</code> 的 <code>Iterator</code>，其中 <code>x</code> 是图像数据的 Numpy 数组（在单张图像输入时），或 Numpy 数组列表（在额外多个输入时），<code>y</code> 是对应的标签的 Numpy 数组。如果 ‘sample_weight’ 不是 None，生成的元组形式为 <code>(x, y, sample_weight)</code>。如果 <code>y</code> 是 None, 只有 Numpy 数组 <code>x</code> 被返回。</p>
+<hr />
+<p><code>ImageDataGenerator</code>方法功能很强大，这里就列出几个比较常用的，如果在实际应用中有包含没涉及到的，可以直接查看<a href="https://keras.io/zh/preprocessing/image/#imagedatagenerator" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>这里再附上一个CSDN上一位博主写的更加直观的解释，方便加深印象，附上<a href="https://blog.csdn.net/xijuezhu8128/article/details/79895856" target="_blank" rel="noopener">链接</a>可以直接点击查看。</p>
+</div><div class="post-copyright"><blockquote><p>原文作者: 打马诗人</p><p>原文链接: <a href="../../../../https:/musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/">https://musicpoet.top/2020/04/27/Keras学习之ImageDataGenerator方法/</a></p><p>版权声明: 转载请注明出处(必须保留原文作者署名原文链接)</p></blockquote></div><div class="tags"><a href="../../../../tags/Keras/">Keras</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="../Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/" class="next">Keras学习之Model方法</a></div><div id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80OTA0MS8yNTUzNg=="></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法的引入"><span class="toc-number">1.</span> <span class="toc-text"> 方法的引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数"><span class="toc-number">2.</span> <span class="toc-text"> 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-number">3.</span> <span class="toc-text"> 例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flow"><span class="toc-number">4.</span> <span class="toc-text"> flow</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">Keras学习之ImageDataGenerator方法</a></li><li class="post-list-item"><a class="post-list-link" href="../Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/">Keras学习之Model方法</a></li><li class="post-list-item"><a class="post-list-link" href="../../22/Image-hashing-with-OpenCV-and-Python/">Image hashing with OpenCV and Python</a></li><li class="post-list-item"><a class="post-list-link" href="../../09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/">OOP设计7大设计原则总结</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">针对Github下载速度过慢的解决办法</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">高级人工智能之通过搜索解决问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/">高级人工智能之智能Agent</a></li><li class="post-list-item"><a class="post-list-link" href="../../../03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">创建型设计模式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/">深度学习小技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="../../../../tags/Keras/" style="font-size: 15px;">Keras</a> <a href="../../../../tags/CV/" style="font-size: 15px;">CV</a> <a href="../../../../tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/" style="font-size: 15px;">技术问题</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" style="font-size: 15px;">设计模式 面向对象编程</a> <a href="../../../../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="../../../../tags/AI/" style="font-size: 15px;">AI</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/">2020</a><span class="archive-list-count">8</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="hhttps://www.pyimagesearch.com/" title="pyimagesearch" target="_blank">pyimagesearch</a><ul></ul><a href="https://blog.floydhub.com/" title="floydhub's blog" target="_blank">floydhub's blog</a><ul></ul><a href="https://keras-cn.readthedocs.io/" title="Keras中文文档" target="_blank">Keras中文文档</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="../../../../." rel="nofollow">打马诗人.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','164591113','auto');ga('send','pageview');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?b803f369eae2203f4e666f3d6f7c5e01";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="../../../../js/search.json.js?v=2.0.5"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});</script><script type="text/javascript" src="../../../../cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="../../../../js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="../../../../js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="../../../../share/css/share.css"><script type="text/javascript" src="../../../../share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="../../../../share/js/qrcode.js" charset="utf-8"></script><script>(function(d, s) {
+  var j, e = d.getElementsByTagName('body')[0];
+  if (typeof LivereTower === 'function') { return; }
+  j = d.createElement(s);
+  j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+  j.async = true;
+  e.appendChild(j);
+})(document, 'script');
+</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/chitose.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body></html>
