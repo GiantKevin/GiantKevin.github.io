@@ -5,9 +5,9 @@
   <subtitle>做颗星星，有棱有角，还会发光。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://musicpoet.top/"/>
-  <updated>2020-04-27T15:30:00.000Z</updated>
-  <id>https://musicpoet.top/</id>
+  <link href="https://www.musicpoet.top/"/>
+  <updated>2020-04-28T16:53:22.000Z</updated>
+  <id>https://www.musicpoet.top/</id>
   
   <author>
     <name>打马诗人</name>
@@ -17,9 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>使用Keras搭建LeNet5神经网络用于手写数字识别</title>
+    <link href="https://www.musicpoet.top/2020/04/29/%E4%BD%BF%E7%94%A8Keras%E6%90%AD%E5%BB%BALeNet5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%94%A8%E4%BA%8E%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/use-keras-to-build-lenet5-neural-network-for-handwritten-digit-recognition.html"/>
+    <id>https://www.musicpoet.top/2020/04/29/%E4%BD%BF%E7%94%A8Keras%E6%90%AD%E5%BB%BALeNet5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%94%A8%E4%BA%8E%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/use-keras-to-build-lenet5-neural-network-for-handwritten-digit-recognition.html</id>
+    <published>2020-04-28T16:53:22.000Z</published>
+    <updated>2020-04-28T16:53:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>用Keras搭建深度学习框架的时候，我一般都是看着别人的代码，照着敲一边完事，感觉自己就会来，但是实际上却不是这样。刚好，下周需要用钉钉讲解深度学习框架，因为对Keras相对熟悉，所以打算用Keras搭建一个最简单的LeNet5神经网络，用于最简单的mnist手写数字的识别，也算是对之前学习知识的一个强化。</p><h3 id="lenet5卷积神经网络"><a class="markdownIt-Anchor" href="#lenet5卷积神经网络"></a> LeNet5卷积神经网络</h3><p><code>LeNet5</code>网络是计算机科学家<strong>Yann LeCun</strong>于1998年发布的一篇论文《<em>Gradient based learning applied to document-recognition</em>》中提出的，这篇论文对于现代卷积神经网络的研究仍具有指导意义，可以说是CNN领域的第一篇经典之作。（摘自网络）</p><p>下面我将展示一下<code>LeNet-5</code>模型的整体框架结构：</p><p><img src="https://i.loli.net/2020/04/29/Rdp3stAkPM8fN9r.png" alt="微信截图_20200429011227.png" /></p><p><code>LeNet-5</code>模式含有两个卷积层，两个池化层，两个全连接层和一个高斯连接组成。输入图像是32×32的手写数字，采用的5×5的卷积核，下采样使用的是2×2的卷积核。前期使用<code>tanh</code>激活函数，在最后一层全连接使用<code>sigmoid</code>激活函数。</p><p>下面我将展示<code>LeNet-5</code>网络的参数情况：</p><p><img src="https://s1.ax1x.com/2020/04/29/Jo9Cq0.png" alt="Jo9Cq0.png" /></p><p>后面，我将上图原始的<code>LeNet-5</code>网络结构，用Keras来实现它。</p><h3 id="mnist手写数据集"><a class="markdownIt-Anchor" href="#mnist手写数据集"></a> MNIST手写数据集</h3><p>MNIST手写数据集是学习深度学习中最常用的一个数据集。该数据集包含60,000个用于训练的示例和10,000个用于测试的示例。这些数字已经过尺寸标准化并位于图像中心，图像是固定大小(28x28像素)，其值为0到1。为简单起见，每个图像都被平展并转换为784(28 * 28)个特征的一维numpy数组。（摘自网络）</p><p>手写数据集概览如下：</p><p><img src="https://s1.ax1x.com/2020/04/29/Jo9Bo8.png" alt="Jo9Bo8.png" /></p><p>现如今，几乎所有的深度学习框架都会自带mnist手写数据集，使用起来非常方便，在Keras中只需使用<code>from keras.models import mnist</code>这段代码就可以载入mnist数据集。</p><h3 id="lenet-5实现mnist数字识别"><a class="markdownIt-Anchor" href="#lenet-5实现mnist数字识别"></a> LeNet-5实现MNIST数字识别</h3><p>如果想要实现一个深度学习模型，那么导入数据集，对数据集做处理，搭建模型， 训练模型，用训练集检查模型的好坏都必不可少。我会按照以上介绍的步骤一步步实现这个简单的项目。</p><p><strong>#1.导入必须的Python包</strong></p><p>想要实现这个项目，首先必备的工具不可少，导入必须的python包是第一步。以下是完成这个项目所必需的packages。</p><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">from</span> keras.datasets <span class="keyword">import</span> mnist</span><br><span class="line"><span class="title">from</span> keras.layers.convolutional <span class="keyword">import</span> Conv2D, MaxPooling2D</span><br><span class="line"><span class="title">from</span> keras.layers <span class="keyword">import</span> Flatten, Dense</span><br><span class="line"><span class="title">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="title">from</span> keras.optimizers <span class="keyword">import</span> SGD</span><br><span class="line"><span class="title">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="title">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelBinarizer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure><p>以上这些包的作用我不多做介绍，下面用到的时候会做简单介绍，如果有疑问的话，请自行百度。</p><p><strong>#2.加载数据集，并对数据做预处理</strong></p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line"><span class="string">(x_train,</span> <span class="string">y_train),</span> <span class="string">(x_test,</span> <span class="string">y_test)</span> <span class="string">=</span> <span class="string">mnist.load_data()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数据做预处理</span></span><br><span class="line"><span class="string">x_train</span> <span class="string">=</span> <span class="string">x_train.reshape(x_train.shape[0],</span> <span class="number">28</span><span class="string">,</span> <span class="number">28</span><span class="string">,</span> <span class="number">1</span><span class="string">)</span></span><br><span class="line"><span class="string">x_test</span> <span class="string">=</span> <span class="string">x_test.reshape(x_test.shape[0],</span> <span class="number">28</span><span class="string">,</span> <span class="number">28</span><span class="string">,</span> <span class="number">1</span><span class="string">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将label进行one-hot编码</span></span><br><span class="line"><span class="string">lb</span> <span class="string">=</span> <span class="string">LabelBinarizer()</span></span><br><span class="line"><span class="string">y_train</span> <span class="string">=</span> <span class="string">lb.fit_transform(y_train)</span></span><br><span class="line"><span class="string">y_test</span> <span class="string">=</span> <span class="string">lb.transform(y_test)</span></span><br></pre></td></tr></table></figure><p>使用<code>mnist.load_data()</code>就可以加载出数据，并将数据分为训练集合测试集。系统自带的数据集已经分好过了，不需要我们自己写代码拆分。包含60000张训练图片和10000张测试图片。</p><p>在我们将图片输入卷积神经网络之前需要对数据做一下预处理，因为卷积神经网络需要一个四维的数据，因此我们也应该将输入数据变成四维的。<code>x_train.shape[0]</code>表示输入数据集的数目，两个28分别表示图片的高和宽，而最后的1表示通道数，因为手写数据是黑白的，所以通道数是1，如果输入图片是彩色的，则通道数目应该改为3。</p><p>除了对输入图像做处理，我们还得对标签进行一下预处理，使用<code>LabelBinarizer()</code>方法将标签变成one-hot编码，方便我们后期进行分类。如果你不会这个方法的话，可以参考<a href="http://lijiancheng0614.github.io/scikit-learn/modules/generated/sklearn.preprocessing.LabelBinarizer.html" target="_blank" rel="noopener">官方文档</a>。</p><p><strong>#3.搭建<code>LeNet-5</code>卷积神经网络</strong></p><p>对数据集做完处理之后，接下来就应该搭建我们的框架了，代码如下：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搭建LeNet框架</span></span><br><span class="line">model = Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(Conv2D(6, (5, 5), <span class="attribute">padding</span>=<span class="string">'valid'</span>, <span class="attribute">activation</span>=<span class="string">'tanh'</span>, input_shape=(28, 28, 1)))</span><br><span class="line">model.<span class="builtin-name">add</span>(AveragePooling2D((2, 2)))</span><br><span class="line">model.<span class="builtin-name">add</span>(Conv2D(16, (5, 5), <span class="attribute">padding</span>=<span class="string">'valid'</span>, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(AveragePooling2D(2, 2))</span><br><span class="line">model.<span class="builtin-name">add</span>(Flatten())</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(120, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(84, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(10, <span class="attribute">activation</span>=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure><p>上面的代码，完全是按照<strong>Yann LeCun</strong>原始论文搭建，如果对于Model方法不熟悉的话，可以参看Keras的官方文档，这里不做过多阐述。</p><p><strong>#4.对搭建的模型进行训练</strong></p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置优化器</span></span><br><span class="line">sgd = SGD(<span class="attribute">lr</span>=0.01, <span class="attribute">decay</span>=1e-6, <span class="attribute">momentum</span>=0.9, <span class="attribute">nesterov</span>=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对模型进行编译</span></span><br><span class="line">model.compile(<span class="attribute">loss</span>=<span class="string">"categorical_crossentropy"</span>, <span class="attribute">optimizer</span>=sgd, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"><span class="builtin-name">print</span>(model.summary())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对模型进行训练</span></span><br><span class="line">H = model.fit(x_train, y_train, validation_data=(x_test, y_test), <span class="attribute">batch_size</span>=128, <span class="attribute">epochs</span>=20, <span class="attribute">verbose</span>=1, <span class="attribute">shuffle</span>=<span class="literal">True</span>)</span><br><span class="line">model.save(<span class="string">"./lenet-5-MNIST.hdf5"</span>)</span><br></pre></td></tr></table></figure><p>我们在对我们构建的模型进行训练之前，应该先设置优化器<code>optimize</code>r和损失函数<code>loss</code>。**优化器用来更新和计算影响模型训练和模型输出的网络参数，使其逼近或达到最优值，从而最小化(或最大化)损失函数，而损失函数用来衡量模型预测的好坏。**在这里我们使用的是<code>SGD</code>（随机梯度下降）优化器和<code>categorical_crossentropy</code>损失函数。而<code>categorical_crossentropy</code>损失函数常被用于多分类，如果只进行二分类的话<code>binary_crossentropy</code>会是更好的选择。</p><p>设置完优化器之后，接着就是要对模型进行编译操作，编译之后我们将对模型进行训练，我们将训练完成的模型用<code>model.save()</code>方法进行保存，方便下次直接使用。这里设置的<code>batch_size</code>是128，表示一个batch包含128张图片，<code>epochs</code>设置成20，表示将训练集训练20次。如果对<code>.model</code>方法不熟悉的话，可以参考我上上篇博客，这里不多做赘述。</p><p><strong>#5. 使用测试集对我们的模型进行评估</strong></p><p>在训练完模型之后，我们需要在测试机上进行测试，以检测我们模型的好坏，代码如下：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用测试集预测结果</span></span><br><span class="line">preds = model.predict(x_test, <span class="attribute">batch_size</span>=128)</span><br><span class="line"><span class="builtin-name">print</span>(classification_report(y_test.argmax(<span class="attribute">axis</span>=1), preds.argmax(<span class="attribute">axis</span>=1),</span><br><span class="line">                            target_names=[str(x) <span class="keyword">for</span> x <span class="keyword">in</span> lb.classes_]))</span><br></pre></td></tr></table></figure><p>我们使用<code>model.predict()</code>方法对我们的测试集进行测试，预测的结果用<code>preds</code>表示，接着我们使用<code>classification_report()</code>来表示我们预测的准确度。使用方法请参考以下这篇博客：<a href="https://blog.csdn.net/akadiao/article/details/78788864" target="_blank" rel="noopener">机器学习笔记－－classification_report&amp;精确度/召回率/F1值</a></p><p><strong>#6.绘制训练时候的精确度和损失的变化</strong></p><p>项目完成后，我们往往想看一下训练时候的Loss和Accuracy的变化，当然图片走势必比数字更直观。我参考了官方文档的方法，来对训练数据进行了可视化，代码如下：</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 绘制训练 <span class="selector-tag">&amp;</span> 验证的准确率值</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'accuracy'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'val_accuracy'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Model accuracy'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Accuracy'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.xlabel</span>(<span class="string">'Epoch'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>([<span class="string">'Train'</span>, <span class="string">'Test'</span>], loc=<span class="string">'upper left'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.savefig</span>(<span class="string">"Accuracy.png"</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.show</span>()</span><br><span class="line"></span><br><span class="line"># 绘制训练 <span class="selector-tag">&amp;</span> 验证的损失值</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'loss'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'val_loss'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Model loss'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Loss'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.xlabel</span>(<span class="string">'Epoch'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>([<span class="string">'Train'</span>, <span class="string">'Test'</span>], loc=<span class="string">'upper left'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.savefig</span>(<span class="string">"Loss.png"</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.show</span>()</span><br></pre></td></tr></table></figure><p>上面代码是将Accuracy和Loss分开绘制的，当然你也可以将二者绘制到一起，这里参考了之前在<a href="https://www.pyimagesearch.com/" target="_blank" rel="noopener">pyimagesearch</a>博客里编写的代码，代码如下：</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 绘制训练 <span class="selector-tag">&amp;</span> 验证的准确率值</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'accuracy'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'val_accuracy'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Model accuracy'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Accuracy'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.xlabel</span>(<span class="string">'Epoch'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>([<span class="string">'Train'</span>, <span class="string">'Test'</span>], loc=<span class="string">'upper left'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.savefig</span>(<span class="string">"Accuracy.png"</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.show</span>()</span><br><span class="line"></span><br><span class="line"># 绘制训练 <span class="selector-tag">&amp;</span> 验证的损失值</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'loss'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.plot</span>(H.history[<span class="string">'val_loss'</span>])</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Model loss'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Loss'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.xlabel</span>(<span class="string">'Epoch'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>([<span class="string">'Train'</span>, <span class="string">'Test'</span>], loc=<span class="string">'upper left'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.savefig</span>(<span class="string">"Loss.png"</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.show</span>()</span><br></pre></td></tr></table></figure><p>我在运行代码的时候，有出现过一个报错，显示**<code>KeyError:acc</code>**，我在网上搜索一番后，发现是因为Keras版本不同<code>H.history['accuracy']</code>写法不同，有的是写成<code>H.history['acc']</code>，如果你有遇到过类似错误，建议尝试二者中另外的一种，当然对应的<code>val_accuracy</code>也需要进行修改。</p><p><strong>#7.完整代码</strong></p><p>这里贴上完整代码，方便大家粘贴到编译器运行。</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.datasets import mnist</span><br><span class="line"><span class="keyword">from</span> keras.layers.convolutional import Conv2D, AveragePooling2D</span><br><span class="line"><span class="keyword">from</span> keras.layers import Flatten, Dense</span><br><span class="line"><span class="keyword">from</span> keras.models import Sequential</span><br><span class="line"><span class="keyword">from</span> keras.optimizers import SGD</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics import classification_report</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing import LabelBinarizer</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">(x_train, y_train), (x_test, y_test) = mnist.load_data()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数据做预处理</span></span><br><span class="line">x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)</span><br><span class="line">x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将label进行one-hot编码</span></span><br><span class="line">lb = LabelBinarizer()</span><br><span class="line">y_train = lb.fit_transform(y_train)</span><br><span class="line">y_test = lb.transform(y_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搭建LeNet框架</span></span><br><span class="line">model = Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(Conv2D(6, (5, 5), <span class="attribute">padding</span>=<span class="string">'valid'</span>, <span class="attribute">activation</span>=<span class="string">'tanh'</span>, input_shape=(28, 28, 1)))</span><br><span class="line">model.<span class="builtin-name">add</span>(AveragePooling2D((2, 2)))</span><br><span class="line">model.<span class="builtin-name">add</span>(Conv2D(16, (5, 5), <span class="attribute">padding</span>=<span class="string">'valid'</span>, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(AveragePooling2D(2, 2))</span><br><span class="line">model.<span class="builtin-name">add</span>(Flatten())</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(120, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(84, <span class="attribute">activation</span>=<span class="string">'tanh'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(Dense(10, <span class="attribute">activation</span>=<span class="string">'softmax'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置优化器，和损失函数</span></span><br><span class="line">sgd = SGD(<span class="attribute">lr</span>=0.01, <span class="attribute">decay</span>=1e-6, <span class="attribute">momentum</span>=0.9, <span class="attribute">nesterov</span>=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对模型进行编译</span></span><br><span class="line">model.compile(<span class="attribute">loss</span>=<span class="string">"categorical_crossentropy"</span>, <span class="attribute">optimizer</span>=sgd, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"><span class="builtin-name">print</span>(model.summary())</span><br><span class="line"><span class="comment"># 对模型进行训练</span></span><br><span class="line">H = model.fit(x_train, y_train, validation_data=(x_test, y_test), <span class="attribute">batch_size</span>=128, <span class="attribute">epochs</span>=20, <span class="attribute">verbose</span>=1, <span class="attribute">shuffle</span>=<span class="literal">True</span>)</span><br><span class="line">model.save(<span class="string">"./lenet-5-MNIST.hdf5"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用测试集预测结果</span></span><br><span class="line">preds = model.predict(x_test, <span class="attribute">batch_size</span>=128)</span><br><span class="line"><span class="builtin-name">print</span>(classification_report(y_test.argmax(<span class="attribute">axis</span>=1), preds.argmax(<span class="attribute">axis</span>=1),</span><br><span class="line">                            target_names=[str(x) <span class="keyword">for</span> x <span class="keyword">in</span> lb.classes_]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制训练 &amp; 验证的准确率值</span></span><br><span class="line">plt.plot(H.history[<span class="string">'accuracy'</span>])</span><br><span class="line">plt.plot(H.history[<span class="string">'val_accuracy'</span>])</span><br><span class="line">plt.title(<span class="string">'Model accuracy'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Accuracy'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epoch'</span>)</span><br><span class="line">plt.legend([<span class="string">'Train'</span>, <span class="string">'Test'</span>], <span class="attribute">loc</span>=<span class="string">'upper left'</span>)</span><br><span class="line">plt.savefig(<span class="string">"Accuracy.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制训练 &amp; 验证的损失值</span></span><br><span class="line">plt.plot(H.history[<span class="string">'loss'</span>])</span><br><span class="line">plt.plot(H.history[<span class="string">'val_loss'</span>])</span><br><span class="line">plt.title(<span class="string">'Model loss'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Loss'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epoch'</span>)</span><br><span class="line">plt.legend([<span class="string">'Train'</span>, <span class="string">'Test'</span>], <span class="attribute">loc</span>=<span class="string">'upper left'</span>)</span><br><span class="line">plt.savefig(<span class="string">"Loss.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string"># 保存可视化训练结果</span></span><br><span class="line"><span class="string">plt.style.use("</span>ggplot<span class="string">")</span></span><br><span class="line"><span class="string">plt.figure()</span></span><br><span class="line"><span class="string">plt.plot(np.arange(0, 20), H.history["</span>loss<span class="string">"], label="</span>train_loss<span class="string">")</span></span><br><span class="line"><span class="string">plt.plot(np.arange(0, 20), H.history["</span>val_loss<span class="string">"], label="</span>val_loss<span class="string">")</span></span><br><span class="line"><span class="string">plt.plot(np.arange(0, 20), H.history["</span>acc<span class="string">"], label="</span>train_acc<span class="string">")</span></span><br><span class="line"><span class="string">plt.plot(np.arange(0, 20), H.history["</span>val_acc<span class="string">"], label="</span>val_acc<span class="string">")</span></span><br><span class="line"><span class="string">plt.title("</span>Training Loss <span class="keyword">and</span> Accuracy<span class="string">")</span></span><br><span class="line"><span class="string">plt.xlabel("</span># Epoch<span class="string">")</span></span><br><span class="line"><span class="string">plt.ylabel("</span>Loss/Accuracy<span class="string">")</span></span><br><span class="line"><span class="string">plt.legend()</span></span><br><span class="line"><span class="string">plt.savefig("</span>./lenet-5-loss_acc.png<span class="string">")</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br></pre></td></tr></table></figure><h3 id="结果和总结"><a class="markdownIt-Anchor" href="#结果和总结"></a> 结果和总结</h3><p>这篇博客的最后，我们来看一下<code>LeNet-5</code>模型在mnist手写数字识别上的效果。</p><p>首先看一下在训练集和测试集上分别的精确度和损失，如下图所示：</p><p><img src="https://i.loli.net/2020/04/29/89KUVpvl6M1XbEr.png" alt="微信截图_20200429025210.png" /></p><p>在训练集上，精确度达到了99.38%，损失是1.97%。而在测试集上，精确度达到了99.02%，损失是3.3%。这个结果已经非常不错了，因为这是在最原始的框架上。</p><p>然后我们再看一下在测试集10000张图片上的预测结果：</p><p><img src="https://i.loli.net/2020/04/29/nkXmfhyWOKidFGV.png" alt="微信截图_20200429025304.png" /></p><p>在1-9的10个数字上，测试集的精确度和召回率都达到了99%，说明模型的预测效果还是非常不错的。</p><p>我们最后在看一下，我们在训练模型时Accuracy和Loss的变化趋势：</p><p><a href="https://imgchr.com/i/JoiCqI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/29/JoiCqI.png" alt="JoiCqI.png" /></a><br /><a href="https://imgchr.com/i/Joi9sA" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/29/Joi9sA.png" alt="Joi9sA.png" /></a></p><p>从图片中，我们可以看出在测试集的训练中，在17.5的epoch的时候，准确度和损失有点波动，但是不影响最终的结果。</p><hr /><p>以上是这篇博客的所有内容，差不多花了两三个小时写完，觉得很有成就感，感谢您的关注与阅读。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;用Keras搭建深度学习框架的时候，我一般都是看着别人的代码，照着敲一边完事，感觉自己就会来，但是实际上却不是这样。刚好，下周需要用钉钉讲解深度学习框架，因为对Keras相对熟悉，所以打算用Keras搭建一个最简单的LeNet5神经网络，用于最简单的mnist手写数字的识别
+      
+    
+    </summary>
+    
+    
+      <category term="深度学习小技巧" scheme="https://www.musicpoet.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="深度学习， Keras" scheme="https://www.musicpoet.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C-Keras/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Keras学习之ImageDataGenerator方法</title>
-    <link href="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/"/>
-    <id>https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/imagedatagenerator-method-of-keras-learning.html"/>
+    <id>https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/imagedatagenerator-method-of-keras-learning.html</id>
     <published>2020-04-27T15:30:00.000Z</published>
     <updated>2020-04-27T15:30:00.000Z</updated>
     
@@ -36,17 +62,17 @@
     </summary>
     
     
-      <category term="深度学习小技巧" scheme="https://musicpoet.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="深度学习小技巧" scheme="https://www.musicpoet.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
-      <category term="Keras" scheme="https://musicpoet.top/tags/Keras/"/>
+      <category term="Keras" scheme="https://www.musicpoet.top/tags/Keras/"/>
     
   </entry>
   
   <entry>
     <title>Keras学习之Model方法</title>
-    <link href="https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/"/>
-    <id>https://musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/model-method-of-keras-learning.html"/>
+    <id>https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/model-method-of-keras-learning.html</id>
     <published>2020-04-26T17:23:17.000Z</published>
     <updated>2020-04-26T17:23:17.000Z</updated>
     
@@ -63,17 +89,17 @@
     </summary>
     
     
-      <category term="深度学习小技巧" scheme="https://musicpoet.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="深度学习小技巧" scheme="https://www.musicpoet.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
-      <category term="Keras" scheme="https://musicpoet.top/tags/Keras/"/>
+      <category term="Keras" scheme="https://www.musicpoet.top/tags/Keras/"/>
     
   </entry>
   
   <entry>
     <title>Image hashing with OpenCV and Python</title>
-    <link href="https://musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/"/>
-    <id>https://musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/</id>
+    <link href="https://www.musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/.html"/>
+    <id>https://www.musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/.html</id>
     <published>2020-04-22T05:51:32.000Z</published>
     <updated>2020-04-22T05:51:32.000Z</updated>
     
@@ -90,17 +116,17 @@
     </summary>
     
     
-      <category term="图像处理" scheme="https://musicpoet.top/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+      <category term="图像处理" scheme="https://www.musicpoet.top/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
     
     
-      <category term="CV" scheme="https://musicpoet.top/tags/CV/"/>
+      <category term="CV" scheme="https://www.musicpoet.top/tags/CV/"/>
     
   </entry>
   
   <entry>
     <title>OOP设计7大设计原则总结</title>
-    <link href="https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/"/>
-    <id>https://musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/</id>
+    <link href="https://www.musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/7-major-design-principles-of-oop.html"/>
+    <id>https://www.musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/7-major-design-principles-of-oop.html</id>
     <published>2020-04-09T09:07:24.000Z</published>
     <updated>2020-04-09T09:07:24.000Z</updated>
     
@@ -117,17 +143,17 @@
     </summary>
     
     
-      <category term="软件体系结构与设计模式" scheme="https://musicpoet.top/categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="软件体系结构与设计模式" scheme="https://www.musicpoet.top/categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="设计模式" scheme="https://musicpoet.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="https://www.musicpoet.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>针对Github下载速度过慢的解决办法</title>
-    <link href="https://musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-    <id>https://musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/the-solution-to-slow-download-speed-of-github.html"/>
+    <id>https://www.musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/the-solution-to-slow-download-speed-of-github.html</id>
     <published>2020-03-25T14:29:42.000Z</published>
     <updated>2020-03-25T14:29:42.000Z</updated>
     
@@ -143,17 +169,17 @@
     </summary>
     
     
-      <category term="杂七杂八" scheme="https://musicpoet.top/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"/>
+      <category term="杂七杂八" scheme="https://www.musicpoet.top/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"/>
     
     
-      <category term="技术问题" scheme="https://musicpoet.top/tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+      <category term="技术问题" scheme="https://www.musicpoet.top/tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
     
   </entry>
   
   <entry>
     <title>高级人工智能之通过搜索解决问题</title>
-    <link href="https://musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/"/>
-    <id>https://musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</id>
+    <link href="https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/advanced-artificial-intelligence-solves-problems-through-search.html"/>
+    <id>https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/advanced-artificial-intelligence-solves-problems-through-search.html</id>
     <published>2020-03-20T09:02:14.000Z</published>
     <updated>2020-03-20T09:02:14.000Z</updated>
     
@@ -172,17 +198,17 @@
     </summary>
     
     
-      <category term="高级人工智能" scheme="https://musicpoet.top/categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+      <category term="高级人工智能" scheme="https://www.musicpoet.top/categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
     
-      <category term="AI" scheme="https://musicpoet.top/tags/AI/"/>
+      <category term="AI" scheme="https://www.musicpoet.top/tags/AI/"/>
     
   </entry>
   
   <entry>
     <title>高级人工智能之智能Agent</title>
-    <link href="https://musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/"/>
-    <id>https://musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/</id>
+    <link href="https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/intelligent-agent-for-advanced-artificial-intelligence.html"/>
+    <id>https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/intelligent-agent-for-advanced-artificial-intelligence.html</id>
     <published>2020-03-20T02:09:26.000Z</published>
     <updated>2020-03-20T02:09:26.000Z</updated>
     
@@ -199,17 +225,17 @@
     </summary>
     
     
-      <category term="高级人工智能" scheme="https://musicpoet.top/categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+      <category term="高级人工智能" scheme="https://www.musicpoet.top/categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
     
-      <category term="AI" scheme="https://musicpoet.top/tags/AI/"/>
+      <category term="AI" scheme="https://www.musicpoet.top/tags/AI/"/>
     
   </entry>
   
   <entry>
     <title>创建型设计模式</title>
-    <link href="https://musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://www.musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/creative-design-pattern.html"/>
+    <id>https://www.musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/creative-design-pattern.html</id>
     <published>2020-03-16T12:36:04.000Z</published>
     <updated>2020-03-16T12:36:04.000Z</updated>
     
@@ -226,10 +252,10 @@
     </summary>
     
     
-      <category term="软件体系结构与设计模式" scheme="https://musicpoet.top/categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="软件体系结构与设计模式" scheme="https://www.musicpoet.top/categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="设计模式 面向对象编程" scheme="https://musicpoet.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/"/>
+      <category term="设计模式 面向对象编程" scheme="https://www.musicpoet.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
