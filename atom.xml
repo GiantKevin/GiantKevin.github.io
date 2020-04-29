@@ -18,8 +18,8 @@
   
   <entry>
     <title>使用Keras搭建LeNet5神经网络用于手写数字识别</title>
-    <link href="https://www.musicpoet.top/2020/04/29/%E4%BD%BF%E7%94%A8Keras%E6%90%AD%E5%BB%BALeNet5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%94%A8%E4%BA%8E%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/"/>
-    <id>https://www.musicpoet.top/2020/04/29/%E4%BD%BF%E7%94%A8Keras%E6%90%AD%E5%BB%BALeNet5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%94%A8%E4%BA%8E%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/</id>
+    <link href="https://www.musicpoet.top/20200429/use-keras-to-build-lenet5-neural-network-for-handwritten-digit-recognition.html"/>
+    <id>https://www.musicpoet.top/20200429/use-keras-to-build-lenet5-neural-network-for-handwritten-digit-recognition.html</id>
     <published>2020-04-28T16:53:22.000Z</published>
     <updated>2020-04-28T16:53:22.000Z</updated>
     
@@ -44,8 +44,8 @@
   
   <entry>
     <title>Keras学习之ImageDataGenerator方法</title>
-    <link href="https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/"/>
-    <id>https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BImageDataGenerator%E6%96%B9%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/20200427/imagedatagenerator-method-of-keras-learning.html"/>
+    <id>https://www.musicpoet.top/20200427/imagedatagenerator-method-of-keras-learning.html</id>
     <published>2020-04-27T15:30:00.000Z</published>
     <updated>2020-04-27T15:30:00.000Z</updated>
     
@@ -71,8 +71,8 @@
   
   <entry>
     <title>Keras学习之Model方法</title>
-    <link href="https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/"/>
-    <id>https://www.musicpoet.top/2020/04/27/Keras%E5%AD%A6%E4%B9%A0%E4%B9%8BModel%E6%96%B9%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/20200427/model-method-of-keras-learning.html"/>
+    <id>https://www.musicpoet.top/20200427/model-method-of-keras-learning.html</id>
     <published>2020-04-26T17:23:17.000Z</published>
     <updated>2020-04-26T17:23:17.000Z</updated>
     
@@ -98,8 +98,8 @@
   
   <entry>
     <title>Image hashing with OpenCV and Python</title>
-    <link href="https://www.musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/"/>
-    <id>https://www.musicpoet.top/2020/04/22/Image-hashing-with-OpenCV-and-Python/</id>
+    <link href="https://www.musicpoet.top/20200422/image-hashing-with-opencv-and-python.html"/>
+    <id>https://www.musicpoet.top/20200422/image-hashing-with-opencv-and-python.html</id>
     <published>2020-04-22T05:51:32.000Z</published>
     <updated>2020-04-22T05:51:32.000Z</updated>
     
@@ -125,8 +125,8 @@
   
   <entry>
     <title>OOP设计7大设计原则总结</title>
-    <link href="https://www.musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/"/>
-    <id>https://www.musicpoet.top/2020/04/09/OOP%E8%AE%BE%E8%AE%A17%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%80%BB%E7%BB%93/</id>
+    <link href="https://www.musicpoet.top/20200409/7-major-design-principles-of-oop.html"/>
+    <id>https://www.musicpoet.top/20200409/7-major-design-principles-of-oop.html</id>
     <published>2020-04-09T09:07:24.000Z</published>
     <updated>2020-04-09T09:07:24.000Z</updated>
     
@@ -152,8 +152,8 @@
   
   <entry>
     <title>针对Github下载速度过慢的解决办法</title>
-    <link href="https://www.musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-    <id>https://www.musicpoet.top/2020/03/25/%E9%92%88%E5%AF%B9Github%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <link href="https://www.musicpoet.top/20200325/the-solution-to-slow-download-speed-of-github.html"/>
+    <id>https://www.musicpoet.top/20200325/the-solution-to-slow-download-speed-of-github.html</id>
     <published>2020-03-25T14:29:42.000Z</published>
     <updated>2020-03-25T14:29:42.000Z</updated>
     
@@ -178,8 +178,8 @@
   
   <entry>
     <title>高级人工智能之通过搜索解决问题</title>
-    <link href="https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/"/>
-    <id>https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E9%80%9A%E8%BF%87%E6%90%9C%E7%B4%A2%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</id>
+    <link href="https://www.musicpoet.top/20200320/advanced-artificial-intelligence-solves-problems-through-search.html"/>
+    <id>https://www.musicpoet.top/20200320/advanced-artificial-intelligence-solves-problems-through-search.html</id>
     <published>2020-03-20T09:02:14.000Z</published>
     <updated>2020-03-20T09:02:14.000Z</updated>
     
@@ -207,8 +207,8 @@
   
   <entry>
     <title>高级人工智能之智能Agent</title>
-    <link href="https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/"/>
-    <id>https://www.musicpoet.top/2020/03/20/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8B%E6%99%BA%E8%83%BDAgent/</id>
+    <link href="https://www.musicpoet.top/20200320/intelligent-agent-for-advanced-artificial-intelligence.html"/>
+    <id>https://www.musicpoet.top/20200320/intelligent-agent-for-advanced-artificial-intelligence.html</id>
     <published>2020-03-20T02:09:26.000Z</published>
     <updated>2020-03-20T02:09:26.000Z</updated>
     
@@ -234,8 +234,8 @@
   
   <entry>
     <title>创建型设计模式</title>
-    <link href="https://www.musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://www.musicpoet.top/2020/03/16/%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://www.musicpoet.top/20200316/creative-design-pattern.html"/>
+    <id>https://www.musicpoet.top/20200316/creative-design-pattern.html</id>
     <published>2020-03-16T12:36:04.000Z</published>
     <updated>2020-03-16T12:36:04.000Z</updated>
     

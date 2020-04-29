@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Every man is the master of his own fortune."><meta name="keywords" content="打马诗人"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="../css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="../css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="../favicon.ico"><link rel="bookmark" href="../favicon.ico"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="../apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="../atom.xml"><title>高级人工智能之智能Agent | 打马的部落格</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">高级人工智能之智能Agent</h1><a id="logo" href="../.">打马的部落格</a><p class="description">做颗星星，有棱有角，还会发光。</p></div><div id="nav-menu"><a href="../." class="current"><i class="fa fa-home"> 首页</i></a><a href="../archives/"><i class="fa fa-archive"> 归档</i></a><a href="../about/"><i class="fa fa-user"> 关于</i></a><a href="../atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">高级人工智能之智能Agent</h1><div class="post-meta"><a href="#comments" class="comment-count"></a><p><span class="date">Mar 20, 2020</span><span><a href="../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="category">高级人工智能</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h3 id="1智能agent的特点"><a class="markdownIt-Anchor" href="#1智能agent的特点"></a> 1.智能Agent的特点：</h3>
+<p>可自主操作、感知环境、持续动作、顺应变化、实现目标和最佳结果(或者最佳预期结果)。</p>
+<p>概括地说，一个智能体可以被看作具有如下功能的任何事物：</p>
+<ul>
+<li>通过感受器感知外部环境，并且通过执行器作用于外部环境。</li>
+<li>可以通过学习或者应用知识来实现其目标。</li>
+</ul>
+<h3 id="2理性agent"><a class="markdownIt-Anchor" href="#2理性agent"></a> 2.理性Agent</h3>
+<p>定义：是一个有<strong>正确行为</strong>的智能体——该功能表中的每个条目都正确填写。</p>
+<p>对于正确行为的解释：</p>
+<ul>
+<li>一个智能体在一个环境中依据感知生成一系列的动作。</li>
+<li>这些动作由一系列状态而引起环境发生变化。</li>
+<li>如果该系列变化是所期望的，则该智能体表现良好。</li>
+</ul>
+<p>对于理性的理解：</p>
+<p>理性是指<strong>探索、学习和自主</strong>的。</p>
+<p>理性的动作是<strong>指对给定的感知序列，能使期待的性能指标最大化</strong>。</p>
+<p>理性同样依赖于四件事：</p>
+<ul>
+<li>定义成功标准的性能指标。</li>
+<li>智能体对环境的先验知识。</li>
+<li>智能体所能够完成的动作。</li>
+<li>智能体最新的感知序列。</li>
+</ul>
+<h3 id="3peas"><a class="markdownIt-Anchor" href="#3peas"></a> 3.PEAS</h3>
+<p>定义：PEAS是一种任务环境的规范，四个大写字母的缩写分别代表Performance(性能)、Environment(环境)、Actuators(动作器)和Sensors(感受器)。</p>
+<p>不同的环境类型：</p>
+<ul>
+<li>完全可观测和部分可观测。一个智能体的传感器在每个时间点上可访问环境的完整状态，则该任务环境就是完全可观测的。</li>
+<li>单智能体和多智能体。一个智能体在一个环境内自运行，则它就是一个单智能体。</li>
+<li>确定性和随机性。环境的下一个状态完全由当前的状态和该智能体执行的动作所决定，则该环境是确定的。</li>
+<li>阵发性和连续性。智能体的动作过程被分为原子的片段，并且每个片段的动作选择仅仅依赖于片段本身。</li>
+<li>动态与静态。如果环境随智能体的行为而改变，则该智能体的环境是动态的；否则是静态的。</li>
+<li>离散与连续。离散与连续的区别在于环境的状态、时间处理的方式、以及感知和智能体的动作。</li>
+<li>已知与未知。在一个已知的环境下，所有动作的结果都是给定的。如果环境是未知的，则该智能体将需要学习如何动作，以便于做出正确的决策。</li>
+</ul>
+<h3 id="4智能体的结构"><a class="markdownIt-Anchor" href="#4智能体的结构"></a> 4.智能体的结构</h3>
+<p>智能体的结构如下图所示：</p>
+<p><img src="https://i.loli.net/2020/03/20/WxrBbPpXQoO7ZyC.png" alt="screenShot.png" /></p>
+<p>智能体的层次：智能体通常表现为一个分层的结构，它包含许多&quot;子智能体&quot;，而子智能体处理和执行较低级的功能。智能体和子智能体构建一个完整的系统，它可以通过行为和反应来完成艰巨的任务。</p>
+<p>表示智能体状态的三种方式：</p>
+<ul>
+<li>原子式：每个状态是一个黑盒子，没有内部结构。</li>
+<li>因子式：每个状态由一组固定的属性和值组成。</li>
+<li>结构式：每个状态包含对象，每个具有属性以及与其他对象的关系。</li>
+</ul>
+<img src="https://i.loli.net/2020/03/20/3APclwS9hsqF7Og.png" alt="screenShot.png" style="zoom:60%;" />
+<h3 id="5智能体的主要类别"><a class="markdownIt-Anchor" href="#5智能体的主要类别"></a> 5.智能体的主要类别</h3>
+<p>下面介绍的5种类型的智能体，体现几乎所有智能系统的基本原理。</p>
+<ul>
+<li>简单反射智能体。</li>
+<li>基于模型的反射智能体。</li>
+<li>基于目标的智能体。</li>
+<li>基于效用的智能体。</li>
+<li>学习智能体。</li>
+</ul>
+<p><strong>简单反射智能体</strong></p>
+<p>简单反射智能体<em>仅仅在当前感知的基础上动作，忽略其余的感知历史。</em></p>
+<p>智能体功能是基于条件动作规则：if 条件 then 动作。</p>
+<p><img src="https://i.loli.net/2020/03/20/LstIVNWlghCj9oH.png" alt="screenShot.png" /></p>
+<p>关于简单反射智能体：</p>
+<ul>
+<li>仅当外部环境为完全可测时，该智能体的功能才能发挥。</li>
+<li>某些反射智能体也可以包含关于其当前状态的信息，允许它们忽视执行器已被触发的条件。</li>
+<li>智能体在部分可观测的环境下运行时，无限循环往往是无法避免的。</li>
+<li>如果智能体可以随机产生其动作，有可能从无限循环中摆脱出来。</li>
+</ul>
+<p><strong>模型反射智能体</strong></p>
+<p>一个基于模型的反射智能体<em>可以处理部分可观测环境。</em></p>
+<p>其当前状态存储在智能体中，维护某种结构，它描述不可见外部环境中的一部分。</p>
+<p><img src="https://i.loli.net/2020/03/20/eZdKvYznrPsfjq1.png" alt="screenShot.png" /></p>
+<p>关于基于模型反射智能体：</p>
+<ul>
+<li>关于&quot;<em>外部环境如何运作</em>&quot;的知识被称为一个外部环境模型，由此得名&quot;基于模型的智能体&quot;。</li>
+<li>基于模型的反射智能体将保持某种内部模型。</li>
+<li>内部模型依赖于感知的历史，因此至少反射某些当前状态无法观测的方面。</li>
+<li>它作为反射智能体以某种方式选择动作。</li>
+</ul>
+<p><u>一个基于模型的反射智能体算法。它采用一个内部模型来保持当前外部环境状态的轨迹，然后用等同于简单反射智能体的方式选择一个动作。</u></p>
+<p><strong>基于目标智能体</strong></p>
+<p>通过利用&quot;目标&quot;信息，基于目标的智能体进一步扩展了基于模型的智能体的功能。</p>
+<p><img src="https://i.loli.net/2020/03/20/8DIXHL9Uswo5lrj.png" alt="screenShot.png" /></p>
+<p>关于基于目标智能体：</p>
+<ul>
+<li>目标信息描述所希望的情形。</li>
+<li>它允许智能体在多个可能性之间选择一种方式，挑选出达到目标状态的那一个。</li>
+<li>搜索和规划是人工智能的子领域，致力于发现达到智能体目标的动作序列。</li>
+<li>在某些情况下，基于目标的智能体似乎不太有效，但是它更为灵活，因为这种支持其决策的知识明显地展示出来，并且可以被修改。</li>
+</ul>
+<p><strong>基于效用的智能体</strong></p>
+<p>一个特殊的状态可通过一个效用函数得到，该函数将一个状态隐射到该状态效用的度量。</p>
+<p><img src="https://i.loli.net/2020/03/20/zul2oYN4Vq8n3T5.png" alt="screenShot.png" /></p>
+<p>关于基于效用的智能体：</p>
+<ul>
+<li>一种更通用的性能度量，应该根据它们使得智能体多么&quot;高兴&quot;的程度，允许对不同的外部环境状态进行比较。</li>
+<li>效用这个术语，可用于描述智能体是多么高兴。</li>
+<li>一个理性的基于效用的智能体选择动作，将动作的期待效应最大化。</li>
+<li>一个基于效用的智能体需要建模并记录环境、任务轨迹，这涉及大量的感知、表征、推理和学习的研究。</li>
+</ul>
+<p><strong>学习智能体</strong></p>
+<p>学习允许智能体最初在未知的环境中运行，并且与其最初的知识相比，会变得越来越胜任。</p>
+<p><img src="https://i.loli.net/2020/03/20/DYR8fACb1ZoKWse.png" alt="screenShot.png" /></p>
+<p>关于学习智能体：</p>
+<ul>
+<li>学习要素：它利用评论者对智能体如何动作的反馈，然后决定应该如何修改性能要素以便于未来做的更好。</li>
+<li>性能要素：获得感知并决定动作。</li>
+<li>问题发生器：它对推荐的动作负责，这将形成新的经验。</li>
+</ul>
+<p><strong>智能体的分类法</strong></p>
+<p><img src="https://i.loli.net/2020/03/20/iSeGtZwCKV6MER4.png" alt="screenShot.png" /></p>
+</div><div class="post-copyright"><blockquote><p>原文作者: 打马诗人</p><p>原文链接: <a href="../https:/www.musicpoet.top/20200320/intelligent-agent-for-advanced-artificial-intelligence.html">https://www.musicpoet.top/20200320/intelligent-agent-for-advanced-artificial-intelligence.html</a></p><p>版权声明: 转载请注明出处(必须保留原文作者署名原文链接)</p></blockquote></div><div class="tags"><a href="../tags/AI/">AI</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="advanced-artificial-intelligence-solves-problems-through-search.html" class="pre">高级人工智能之通过搜索解决问题</a><a href="../20200316/creative-design-pattern.html" class="next">创建型设计模式</a></div><div id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80OTA0MS8yNTUzNg=="></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1智能agent的特点"><span class="toc-number">1.</span> <span class="toc-text"> 1.智能Agent的特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2理性agent"><span class="toc-number">2.</span> <span class="toc-text"> 2.理性Agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3peas"><span class="toc-number">3.</span> <span class="toc-text"> 3.PEAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4智能体的结构"><span class="toc-number">4.</span> <span class="toc-text"> 4.智能体的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5智能体的主要类别"><span class="toc-number">5.</span> <span class="toc-text"> 5.智能体的主要类别</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../20200429/use-keras-to-build-lenet5-neural-network-for-handwritten-digit-recognition.html">使用Keras搭建LeNet5神经网络用于手写数字识别</a></li><li class="post-list-item"><a class="post-list-link" href="../20200427/imagedatagenerator-method-of-keras-learning.html">Keras学习之ImageDataGenerator方法</a></li><li class="post-list-item"><a class="post-list-link" href="../20200427/model-method-of-keras-learning.html">Keras学习之Model方法</a></li><li class="post-list-item"><a class="post-list-link" href="../20200422/image-hashing-with-opencv-and-python.html">Image hashing with OpenCV and Python</a></li><li class="post-list-item"><a class="post-list-link" href="../20200409/7-major-design-principles-of-oop.html">OOP设计7大设计原则总结</a></li><li class="post-list-item"><a class="post-list-link" href="../20200325/the-solution-to-slow-download-speed-of-github.html">针对Github下载速度过慢的解决办法</a></li><li class="post-list-item"><a class="post-list-link" href="advanced-artificial-intelligence-solves-problems-through-search.html">高级人工智能之通过搜索解决问题</a></li><li class="post-list-item"><a class="post-list-link" href="">高级人工智能之智能Agent</a></li><li class="post-list-item"><a class="post-list-link" href="../20200316/creative-design-pattern.html">创建型设计模式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E6%8A%80%E5%B7%A7/">深度学习小技巧</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="../categories/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">软件体系结构与设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="../categories/%E9%AB%98%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">高级人工智能</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="../tags/CV/" style="font-size: 15px;">CV</a> <a href="../tags/Keras/" style="font-size: 15px;">Keras</a> <a href="../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="../tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C-Keras/" style="font-size: 15px;">深度学习， Keras</a> <a href="../tags/%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/" style="font-size: 15px;">技术问题</a> <a href="../tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" style="font-size: 15px;">设计模式 面向对象编程</a> <a href="../tags/AI/" style="font-size: 15px;">AI</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2020/">2020</a><span class="archive-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://www.pyimagesearch.com/" title="pyimagesearch" target="_blank">pyimagesearch</a><ul></ul><a href="https://blog.floydhub.com/" title="floydhub's blog" target="_blank">floydhub's blog</a><ul></ul><a href="https://keras-cn.readthedocs.io/" title="Keras中文文档" target="_blank">Keras中文文档</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="../." rel="nofollow">打马诗人.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','164591113','auto');ga('send','pageview');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?b803f369eae2203f4e666f3d6f7c5e01";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="../js/search.json.js?v=2.0.5"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});</script><script type="text/javascript" src="../cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="../js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="../js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="../share/css/share.css"><script type="text/javascript" src="../share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="../share/js/qrcode.js" charset="utf-8"></script><script>(function(d, s) {
+  var j, e = d.getElementsByTagName('body')[0];
+  if (typeof LivereTower === 'function') { return; }
+  j = d.createElement(s);
+  j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+  j.async = true;
+  e.appendChild(j);
+})(document, 'script');
+</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/chitose.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body></html>
